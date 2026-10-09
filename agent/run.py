@@ -101,24 +101,47 @@ def process_enquiry(row: dict[str, str]) -> dict:
     priority = priority_for(message)
     topic = next((t for t in TOPICS if re.search(r"\b" + re.escape(t) + r"\b", message, re.I)), None)
 
+    action = prepare_action(category, message, priority, row.get("quote_inputs"))
     questions = QUESTION_BANK[category][:]
-    # Avoid asking for the timeframe again when it was explicitly supplied.
+    if category == "quotation":
+        extracted = action["extracted"]
+        if topic:
+            questions = [q for q in questions if not q.startswith("What work")]
+        if extracted.get("location_mentioned"):
+            questions = [q for q in questions if not q.startswith("Where")]
+        if extracted.get("timeline_mentioned"):
+            questions = [q for q in questions if not q.startswith("When")]
+    # Don't request a generic timeline again when a clear deadline is supplied.
     if HIGH.search(message) or MEDIUM.search(message):
         questions = [q for q in questions if "when" not in q.lower()
                      and "dates and times" not in q.lower()
                      and "timeframe" not in q.lower()]
-    if not questions:
+    if not questions and category == "quotation":
+        questions = ["Could you share photos, approximate measurements or material preferences?"]
+    elif not questions:
         questions = QUESTION_BANK[category][0:1]
 
     intro = OPENINGS[category]
     if category == "quotation" and topic:
         intro = f"Thanks for enquiring about a {topic} quotation."
-    questions_text = " ".join(questions[:2])
-    draft = (f"{intro} To help us understand your request, could you clarify: "
-             f"{questions_text} We'll review the details before confirming any next steps.")
-    action = prepare_action(category, message, priority, row.get("quote_inputs"))
+    if category == "privacy":
+        questions = ["A team member should assess this request through a secure process."]
+        draft = ("Thanks for your message about your privacy preferences. "
+                 "Your request needs manual review before any action can be confirmed. "
+                 "Please do not send identity documents or passwords in this enquiry.")
+    elif category == "support" and action["extracted"].get("possible_outage"):
+        questions = ["What error is displayed (without sharing passwords)?",
+                     "Approximately when did the interruption start?"]
+        draft = ("Thanks for reporting the interruption. We're sorry you're experiencing this. "
+                 "Could you share the error shown and roughly when the problem started? "
+                 "We can't confirm a fix or a price until a team member investigates.")
+    else:
+        questions_text = " ".join(questions[:2])
+        draft = (f"{intro} To help us understand your request, could you clarify: "
+                 f"{questions_text} We'll review the details before confirming any next steps.")
     return {
         "id": enquiry_id,
+        "client_label": (row.get("fake_client") or "Fictional customer")[:120],
         "category": category,
         "priority": priority,
         "message": message,
@@ -158,7 +181,7 @@ def render_dashboard(records: list[dict]) -> str:
         estimate_html = (f'<div class="draft">Illustrative internal estimate: €{e(estimate["internal_estimate"])} (NOT a customer quote; human approval required).</div>' if estimate else "")
         cards.append(
             f'<article class="enquiry" data-category="{e(r["category"])}" data-priority="{e(r["priority"])}">'
-            f'<div class="line"><strong>{e(r["id"])}</strong><div class="tags">'
+            f'<div class="line"><strong>{e(r["id"])} · {e(r["client_label"])}</strong><div class="tags">'
             f'<span class="tag">{e(r["category"])}</span>'
             f'<span class="tag {e(r["priority"])}">{e(r["priority"])} priority</span></div></div>'
             f'<p class="caption">Fictional enquiry · Human approval required</p>'
