@@ -7,22 +7,32 @@ on:
       - 'agent/**'
       - 'sample_data/**'
       - '.github/workflows/aerie-demo.yml'
+  pull_request:
+    paths:
+      - 'agent/**'
+      - 'sample_data/**'
+      - '.github/workflows/aerie-demo.yml'
 
 jobs:
   test-demo:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     permissions:
       contents: read
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: '3.12'
+      - name: Test agent
+        run: python -m unittest discover -s agent -p 'test_*.py' -v
       - name: Process fictional enquiries
         run: python agent/run.py
-      - name: Upload review report
+      - name: Upload offline review dashboard and reports
         uses: actions/upload-artifact@v4
         with:
           name: aerie-review-report
-          path: output/report.json
+          path: |
+            output/report.json
+            output/dashboard.html
+            output/summary.md
           retention-days: 7
