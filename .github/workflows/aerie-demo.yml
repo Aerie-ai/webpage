@@ -27,7 +27,10 @@ jobs:
         run: python -m unittest discover -s agent -p 'test_*.py' -v
       - name: Process fictional enquiries
         run: python agent/run.py
+      - name: Evaluate realistic fictional client cases
+        run: python agent/mock_client_evaluation.py
       - name: Upload offline review dashboard and reports
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: aerie-review-report
@@ -35,4 +38,7 @@ jobs:
             output/report.json
             output/dashboard.html
             output/summary.md
+            output/mock_clients_results.json
+            output/mock_clients_results.md
+            output/mock_clients_dashboard.html
           retention-days: 7
