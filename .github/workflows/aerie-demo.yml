@@ -6,6 +6,9 @@ on:
     paths:
       - 'agent/**'
       - 'sample_data/**'
+      - 'index.html'
+      - 'privacy.html'
+      - 'Job_Quote_Calculator_DEMO.xlsx'
       - 'pilot/**'
       - 'tests/**'
       - '.github/workflows/aerie-demo.yml'
@@ -13,6 +16,11 @@ on:
     paths:
       - 'agent/**'
       - 'sample_data/**'
+      - 'index.html'
+      - 'privacy.html'
+      - 'Job_Quote_Calculator_DEMO.xlsx'
+      - 'pilot/**'
+      - 'tests/**'
       - '.github/workflows/aerie-demo.yml'
 
 jobs:
