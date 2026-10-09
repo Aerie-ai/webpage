@@ -127,7 +127,16 @@
       note: "Fictional internal estimate only. VAT and any additional costs are excluded and must be reviewed."
     };
   }
-  const api = { evaluate: evaluate, redact: redact, classify: classify, quoteEstimate: quoteEstimate };
+  // Scope prefill is advisory; it cannot invent hours, rates or confirmed prices.
+  function quoteIntake(message) {
+    const safe = redact(message).text;
+    const place = safe.match(/\b(?:in|near|at)\s+(Galway|Limerick|Cork|Dublin|Clare|Ennis|Kilkenny|Sligo|Waterford)\b/i);
+    const categories = /\b(?:repair|deck|website|landscaping|installation|carpentry|cleaning|plumbing|maintenance)\b/gi;
+    const terms = Array.from(new Set((safe.match(categories) || []).map(x => x.toLowerCase())));
+    return { scopeHint: terms.length ? terms.join(" / ") : "", locationHint: place ? place[1] : "",
+             currency: "EUR", costsInferred: false, priceAgreed: false, approvalRequired: true };
+  }
+  const api = { evaluate: evaluate, redact: redact, classify: classify, quoteEstimate: quoteEstimate, quoteIntake: quoteIntake };
   if (typeof module !== "undefined" && module.exports) module.exports = api;
   root.AeriePilot = api;
 })(typeof window !== "undefined" ? window : globalThis);
