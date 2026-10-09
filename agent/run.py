@@ -155,7 +155,7 @@ def render_dashboard(records: list[dict]) -> str:
         action = r["suggested_action"]
         steps = "".join(f"<li>{e(step)}</li>" for step in action["next_steps"])
         estimate = action.get("estimate")
-        estimate_html = (f\'<div class="draft">Illustrative internal estimate: €{e(estimate["internal_estimate"])} (NOT a customer quote; human approval required).</div>\' if estimate else "")
+        estimate_html = (f'<div class="draft">Illustrative internal estimate: €{e(estimate["internal_estimate"])} (NOT a customer quote; human approval required).</div>' if estimate else "")
         cards.append(
             f'<article class="enquiry" data-category="{e(r["category"])}" data-priority="{e(r["priority"])}">'
             f'<div class="line"><strong>{e(r["id"])}</strong><div class="tags">'
