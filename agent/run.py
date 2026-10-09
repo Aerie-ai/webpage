@@ -11,20 +11,25 @@ import json
 import re
 from collections import Counter
 from pathlib import Path
+from operations import prepare_action, OUTAGE
 
 ROOT = Path(__file__).resolve().parents[1]
 INPUT = ROOT / "sample_data" / "enquiries.csv"
 OUTPUT = ROOT / "output"
 
 INTENTS = {
+    "privacy": (r"\b(?:unsubscribe|gdpr|opt out|stop emailing|data subject request)\b",
+                r"\b(?:delete|erase|remove) (?:my|our) (?:data|information|details)\b"),
     "quotation": (r"\b(?:quote|quotation|estimate|pricing|price|cost|budget)\b",),
     "appointments": (r"\b(?:appointment|booking|book|schedule|meeting|consultation|reschedule)\b",),
     "support": (r"\b(?:broken|fault|issue|problem|refund|complaint|error|cancel|cancellation)\b",
-                r"\bnot working\b"),
+                r"\b(?:not working|stopped working|system down|payment system is down)\b",
+                r"\b(?:outage|broken|down|stopped|failed|offline)\b"),
     "services": (r"\b(?:services|offer|provide|specialise|capabilities)\b",),
 }
 # Tie order is deliberate: a request to book a quotation is routed as a quotation.
 QUESTION_BANK = {
+    "privacy": ["What type of request are you making? We will review it through the appropriate secure process."],
     "quotation": [
         "What work or service would you like priced?",
         "Where would the work take place?",
@@ -51,6 +56,7 @@ QUESTION_BANK = {
     ],
 }
 OPENINGS = {
+    "privacy": "Thanks for contacting us about your privacy preferences.",
     "quotation": "Thanks for your quotation enquiry.",
     "appointments": "Thanks for getting in touch about an appointment.",
     "support": "Thanks for letting us know about the problem.",
@@ -68,6 +74,10 @@ def classify(message: str) -> tuple[str, list[str]]:
     matches = {name: [m.group(0) for expression in rules
                       for m in re.finditer(expression, lowered)]
                for name, rules in INTENTS.items()}
+    if matches["privacy"]:
+        return "privacy", sorted(set(matches["privacy"]))
+    if matches["support"] and OUTAGE.search(message):
+        return "support", sorted(set(matches["support"]))
     category = max(INTENTS, key=lambda name: len(matches[name]))
     if not matches[category]:
         return "general", []
@@ -106,6 +116,7 @@ def process_enquiry(row: dict[str, str]) -> dict:
     questions_text = " ".join(questions[:2])
     draft = (f"{intro} To help us understand your request, could you clarify: "
              f"{questions_text} We'll review the details before confirming any next steps.")
+    action = prepare_action(category, message, priority, row.get("quote_inputs"))
     return {
         "id": enquiry_id,
         "category": category,
@@ -113,6 +124,7 @@ def process_enquiry(row: dict[str, str]) -> dict:
         "message": message,
         "summary": (message[:157] + "...") if len(message) > 160 else message,
         "matched_terms": matched_terms,
+        "suggested_action": action,
         "questions_to_ask": questions[:2],
         "draft": draft,
         "review_required": True,
@@ -140,6 +152,10 @@ def render_dashboard(records: list[dict]) -> str:
     cards = []
     for r in records:
         questions = "".join(f"<li>{e(q)}</li>" for q in r["questions_to_ask"])
+        action = r["suggested_action"]
+        steps = "".join(f"<li>{e(step)}</li>" for step in action["next_steps"])
+        estimate = action.get("estimate")
+        estimate_html = (f\'<div class="draft">Illustrative internal estimate: €{e(estimate["internal_estimate"])} (NOT a customer quote; human approval required).</div>\' if estimate else "")
         cards.append(
             f'<article class="enquiry" data-category="{e(r["category"])}" data-priority="{e(r["priority"])}">'
             f'<div class="line"><strong>{e(r["id"])}</strong><div class="tags">'
@@ -148,7 +164,8 @@ def render_dashboard(records: list[dict]) -> str:
             f'<p class="caption">Fictional enquiry · Human approval required</p>'
             f'<h3>Customer message</h3><p>{e(r["message"])}</p>'
             f'<h3>Suggested follow-up questions</h3><ul>{questions}</ul>'
-            f'<h3>Prepared reply — not sent</h3><div class="draft">{e(r["draft"])}</div></article>'
+            f'<h3>Proposed tool: {e(action["tool"])}</h3><ul>{steps}</ul>'
+            f'{estimate_html}<h3>Prepared reply — not sent</h3><div class="draft">{e(r["draft"])}</div></article>'
         )
     breakdown = " · ".join(f"{e(k)}: {v}" for k, v in sorted(counts.items()))
     return f"""<!doctype html>
@@ -186,7 +203,7 @@ footer{{font-size:13px;color:var(--muted);padding-top:24px}}#empty{{display:none
 <div class="controls"><input id="search" type="search" placeholder="Search enquiries..." aria-label="Search enquiries">
 <select id="category" aria-label="Filter category"><option value="">All categories</option>
 <option value="quotation">Quotation</option><option value="appointments">Appointments</option>
-<option value="support">Support</option><option value="services">Services</option><option value="general">General</option></select>
+<option value="support">Support</option><option value="services">Services</option><option value="general">General</option><option value="privacy">Privacy</option></select>
 <select id="priority" aria-label="Filter priority"><option value="">All priorities</option>
 <option value="high">High</option><option value="medium">Medium</option><option value="normal">Normal</option></select></div>
 <p id="empty">No enquiries match these filters.</p>
