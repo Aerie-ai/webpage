@@ -20,11 +20,15 @@ OUTPUT = ROOT / "output"
 
 INTENTS = {
     "privacy": (r"\b(?:unsubscribe|gdpr|opt out|stop emailing|data subject request)\b",
-                r"\b(?:delete|erase|remove) (?:my|our) (?:data|information|details)\b"),
+                r"\b(?:delete|erase|remove) (?:my|our) (?:(?:account|personal) )?(?:data|information|details)\b",
+                r"\bstop (?:sending me|contacting me with) (?:marketing |promotional )?(?:messages|emails)\b",
+                r"\bremove my (?:details|email|address) from (?:your |the )?(?:mailing|marketing|contact) list\b",
+                r"\b(?:i )?no longer (?:wish|want) to receive (?:promotional|marketing) (?:messages|emails)\b"),
     "quotation": (r"\b(?:quote|quotation|estimate|pricing|price|cost|budget)\b",),
-    "appointments": (r"\b(?:appointment|booking|book|schedule|meeting|consultation|reschedule)\b",),
+    "appointments": (r"\b(?:appointment|booking|book|schedule|meeting|consultation|reschedule)\b",
+                     r"\b(?:have|arrange|book|schedule)\s+(?:a\s+)?(?:video\s+)?call\b"),
     "support": (r"\b(?:broken|fault|issue|problem|refund|complaint|error|cancel|cancellation)\b",
-                r"\b(?:not working|stopped working|system down|payment system is down)\b",
+                r"\b(?:not working|stopped working|system down|payment system is down|aren[\u0027’]?t working|isn[\u0027’]?t working|can[\u0027’]?t pay|cannot pay|won[\u0027’]?t accept|declined)\b",
                 r"\b(?:outage|broken|down|stopped|failed|offline)\b"),
     "services": (r"\b(?:services|offer|provide|specialise|capabilities)\b",),
 }
