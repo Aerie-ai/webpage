@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><meta name="referrer" content="no-referrer">
+<title>Aerie Lab — Private by default</title>
+<meta name="description" content="Experimental local-first enquiry and quotation sandbox using fictional data only.">
+<style>
+:root{--navy:#102d47;--blue:#173f67;--wine:#7c2539;--coral:#d87050;--cream:#fcf9f4;--ink:#1a3243;--muted:#556570;--line:#dfe3e3}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--cream);color:var(--ink);font:15px/1.6 system-ui,-apple-system,Segoe UI,Arial,sans-serif}
+a{color:var(--blue)}button,input,select,textarea{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:3px solid #df9357;outline-offset:3px}
+.shell{max-width:1130px;margin:auto;padding:0 24px}.top{background:linear-gradient(115deg,#102d47 5%,#173a56 58%,#713143 100%);color:white;padding:21px 0 54px}
+nav{display:flex;align-items:center;justify-content:space-between;gap:24px}.logo{font-size:28px;letter-spacing:-.06em;font-weight:850;color:white;text-decoration:none}.logo span{color:#f1a57e}
+.back{color:white;text-decoration:none;border:1px solid #c3cad1;padding:7px 12px;border-radius:8px;font-size:13px}.eyebrow{margin:40px 0 8px;letter-spacing:.15em;text-transform:uppercase;font-weight:800;font-size:11px;color:#efaa86}
+h1{font-size:clamp(32px,5vw,53px);line-height:1.1;letter-spacing:-.04em;margin:0 0 15px}h2{font-size:23px;margin:0 0 8px;letter-spacing:-.02em}h3{font-size:16px;margin:0 0 10px}
+.lead{color:#dee8eb;max-width:700px;font-size:17px}.principles{display:flex;gap:10px;flex-wrap:wrap}.principles span{font-size:12px;padding:5px 11px;border-radius:20px;border:1px solid #8294a7}
+main{padding-top:34px;padding-bottom:64px}.warning{border-left:4px solid var(--coral);background:#fff5eb;padding:12px 18px;border-radius:8px;margin-bottom:23px}
+.columns{display:grid;grid-template-columns:1fr 1fr;gap:19px}.card{background:white;border:1px solid var(--line);border-radius:12px;padding:25px;box-shadow:0 9px 23px #142d400a}.card.wide{margin-top:20px}
+.muted{color:var(--muted)}.small{font-size:12px}.mark{font-size:12px;letter-spacing:.12em;color:var(--wine);font-weight:800;text-transform:uppercase}
+label{display:block;font-weight:700;margin:14px 0 6px;font-size:13px}input,select,textarea{background:white;width:100%;border:1px solid #b9c6ce;border-radius:7px;padding:10px 12px;color:var(--ink)}
+textarea{min-height:130px;resize:vertical}.draft{min-height:150px;background:#f8fafb}
+.buttons{display:flex;gap:9px;flex-wrap:wrap;margin-top:16px}.btn{border:0;border-radius:7px;padding:11px 15px;font-weight:750;background:var(--wine);color:white}
+.btn.secondary{background:var(--blue)}.btn.ghost{background:#ebeff1;color:var(--navy)}.btn:disabled{opacity:.5;cursor:not-allowed}
+.status{display:inline-block;padding:4px 10px;background:#e8eef1;border-radius:25px;font-size:12px;text-transform:capitalize}
+.high{background:#ffe5de;color:#842519}.medium{background:#fff0d3;color:#684100}
+.output{margin-top:18px;padding:16px;border:1px solid var(--line);border-radius:8px;background:#f9faf9}
+.output p{margin:6px 0}.output ul{padding-left:22px}.output:empty{display:none}
+.hidden{display:none!important}.review{margin-top:17px;border-top:1px solid var(--line);padding-top:17px}
+fieldset{margin:0;border:0;padding:0}legend{font-weight:800;padding:0 0 4px}.quote-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 13px}
+.amount{font-size:30px;color:var(--wine);font-weight:800}
+footer{border-top:1px solid var(--line);padding:22px 24px;font-size:12px;color:var(--muted)}
+@media(max-width:760px){.columns{grid-template-columns:1fr}.card{padding:19px}.top{padding-bottom:36px}.eyebrow{margin-top:28px}}
+</style></head><body>
+<header class="top"><div class="shell">
+<nav><a class="logo" href="../index.html">aerie<span>.</span> lab</a><a class="back" href="../index.html">← Main website</a></nav>
+<p class="eyebrow">Experimental tools / no customer connections</p>
+<h1>Practical tools.<br>Less data. More control.</h1>
+<p class="lead">Explore Aerie's enquiry desk and quotation workflow using fictional examples. Processing happens in this browser session; nothing is emailed, booked, purchased or stored by these tools.</p>
+<div class="principles"><span>Human-approved</span><span>Privacy-first</span><span>Low-compute rules</span><span>Exportable data</span><span>No paid model calls</span></div>
+</div></header>
+<main class="shell">
+<div class="warning"><strong>Fictional-data laboratory only.</strong> Please do not paste real customer enquiries, names, passwords, payments, contact details or confidential business records here. Pattern-based redaction is incomplete and does not make real data safe.</div>
+<section class="columns" aria-label="Experimental tools">
+<div class="card"><p class="mark">01 / Enquiry desk</p><h2>Understand an enquiry</h2>
+<p class="muted">Choose a fictional customer or enter a completely invented message. Routing is currently rules-based, not generative AI.</p>
+<label for="case">Sample fictional customer</label><select id="case"><option value="">Choose a scenario...</option>
+<option value="0">Harbour &amp; Pine Gifts — Checkout failure</option>
+<option value="1">West Coast Carpentry — Deck quotation</option>
+<option value="2">Small Clinic — Appointment request</option>
+<option value="3">Paw Print Groomers — Enquiry backlog</option>
+<option value="4">Demo Subscriber — Privacy request</option>
+<option value="5">Coastal Workshops — General question</option>
+</select>
+<label for="message">Fictional enquiry</label><textarea id="message" maxlength="3000" spellcheck="true" placeholder="Example: Our checkout stopped working and we urgently need assistance."></textarea>
+<div class="buttons"><button class="btn" id="analyse" type="button">Analyse locally</button><button class="btn ghost" id="clear" type="button">Clear session</button></div>
+<div class="output hidden" id="analysis" role="status" aria-live="polite">
+<h3>Suggested classification</h3><p><span id="category" class="status"></span> <span id="priority" class="status"></span></p>
+<p><strong>Suggested tool:</strong> <span id="tool"></span></p>
+<p><strong>Route:</strong> <span id="route"></span></p>
+<p><strong>Redaction signals:</strong> <span id="redactions"></span></p>
+<p class="muted small">Local rules ran. External model calls: <span id="aiCalls">0</span>. Energy use: not measured.</p>
+<h3>Proposed next steps</h3><ul id="steps"></ul>
+</div>
+</div>
+<div class="card"><p class="mark">02 / Human approval</p><h2>Draft review desk</h2>
+<p class="muted">Edit the proposed response, approve it for your own review records, or reject it. Approval only changes this temporary display; it never sends anything.</p>
+<label for="draft">Editable response</label><textarea id="draft" class="draft" disabled placeholder="Analyse a fictional enquiry to prepare a response."></textarea>
+<div class="buttons"><button id="approve" type="button" class="btn secondary" disabled>Mark approved</button><button id="reject" type="button" class="btn ghost" disabled>Reject draft</button><button id="revise" type="button" class="btn ghost" disabled>Reset draft</button></div>
+<div class="review" role="status" aria-live="polite"><strong>Review status:</strong> <span id="reviewStatus">Waiting for a fictional enquiry</span></div>
+<p class="small muted">All approvals are local to this page. Reloading clears them. No history, messages or data are transmitted by the review tools.</p>
+</div>
+</section>
+<section class="card wide" aria-label="Quotation calculator"><p class="mark">03 / Quote Ready</p><h2>From intake to an internal estimate</h2>
+<p class="muted">Build a fictional cost estimate and export the line items as CSV for a spreadsheet. It is not a binding quotation, and VAT is not calculated. This is separate from the existing downloadable Excel calculator.</p>
+<div class="columns">
+<div>
+<label for="jobScope">Invented job scope</label><input id="jobScope" placeholder="e.g. Small timber deck repair" maxlength="120">
+<label for="jobLocation">Invented location</label><input id="jobLocation" placeholder="e.g. Galway" maxlength="90">
+<div class="quote-grid">
+<div><label for="hours">Labour hours</label><input type="number" id="hours" min="0" max="10000" step="0.25" value="8"></div>
+<div><label for="rate">Hourly rate (€)</label><input type="number" id="rate" min="0" max="10000" step="0.01" value="35"></div>
+<div><label for="materials">Materials (€)</label><input type="number" id="materials" min="0" max="1000000" step="0.01" value="120"></div>
+<div><label for="overheads">Overheads (€)</label><input type="number" id="overheads" min="0" max="1000000" step="0.01" value="40"></div>
+<div><label for="markup">Markup on costs (%)</label><input type="number" id="markup" min="0" max="500" step="0.1" value="20"></div>
+</div>
+<div class="buttons"><button class="btn" type="button" id="calculate">Calculate example</button><button class="btn secondary" type="button" id="export" disabled>Export fictional CSV</button></div>
+</div>
+<div>
+<div class="output" aria-live="polite">
+<h3>Internal fictional estimate</h3><p class="amount" id="total">€—</p>
+<p><strong>Labour:</strong> <span id="labor">—</span></p>
+<p><strong>Cost subtotal:</strong> <span id="subtotal">—</span></p>
+<p><strong>Markup:</strong> <span id="markupAmount">—</span></p>
+<p class="muted small" id="quoteStatus">Calculate to preview. This is not a customer quotation.</p>
+</div>
+<p class="small"><a href="../Job_Quote_Calculator_DEMO.xlsx" download>Download the original Job Quote &amp; Profit Calculator demo</a></p>
+<p class="muted small">CSV provides an open, portable exchange format. It can be opened in spreadsheet software; the Excel workbook is not automatically populated yet.</p>
+</div>
+</div>
+</section>
+<section class="card wide"><p class="mark">04 / Where next</p><h2>Why this lab is different</h2>
+<p class="muted">Local processing is the default. We intend to use a genuine AI model only when it clearly improves a task, with a transparent choice of local or properly secured hosted processing. No model is connected in this version. Future safeguards will need authenticated encrypted storage, audited approvals and independent security review before real business use.</p>
+<p><a href="../index.html">Return to Aerie</a> · <a href="../privacy.html">Website privacy notice</a></p>
+</section>
+</main>
+<footer><div class="shell">Aerie Lab · Experimental fictional-data tools · Nothing here performs external actions or represents a live service.</div></footer>
+<script src="engine.js"></script><script src="app.js"></script>
+</body></html>
