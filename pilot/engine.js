@@ -2,13 +2,15 @@
 (function (root) {
   "use strict";
   const patterns = {
-    privacy: /\b(?:unsubscribe|gdpr|opt out|stop emailing|data subject request)\b|\b(?:delete|erase|remove) (?:my|our) (?:data|information|details)\b/i,
+    privacy: /\b(?:unsubscribe|gdpr|opt out|stop emailing|data subject request)\b|\b(?:delete|erase|remove) (?:my|our) (?:(?:account|personal) )?(?:data|information|details)\b|\bstop (?:sending me|contacting me with) (?:marketing |promotional )?(?:messages|emails)\b|\bremove my (?:details|email|address) from (?:your |the )?(?:mailing|marketing|contact) list\b|\b(?:i )?no longer (?:wish|want) to receive (?:promotional|marketing) (?:messages|emails)\b/i,
     quotation: /\b(?:quote|quotation|estimate|pricing|price|cost|budget)\b/i,
-    appointments: /\b(?:appointment|booking|book|schedule|meeting|consultation|reschedule)\b/i,
-    support: /\b(?:broken|fault|issue|problem|refund|complaint|error|cancel|cancellation|outage|offline|failed|stopped|down)\b|\bnot working\b/i,
+    appointments: /\b(?:appointment|booking|book|schedule|meeting|consultation|reschedule)\b|\b(?:have|arrange|book|schedule)\s+(?:a\s+)?(?:video\s+)?call\b/i,
+    support: /\b(?:broken|fault|issue|problem|refund|complaint|error|cancel|cancellation|outage|offline|failed|stopped|down|declined)\b|\b(?:not working|aren['’]?t working|isn['’]?t working|can['’]?t pay|cannot pay|won['’]?t accept|can['’]?t process)\b/i,
     services: /\b(?:services|offer|provide|specialise|capabilities|leads|enquiries)\b/i
   };
-  const outage = /\b(?:checkout|website|site|system|payment)\b.{0,55}\b(?:down|broken|stopped|failed|failing|offline|error|unavailable)\b|\b(?:down|broken|stopped|failed|failing|offline|error|unavailable)\b.{0,55}\b(?:checkout|website|site|system|payment)\b/i;
+  const systemTerm = "(?:checkout|website|site|system|payments?|tills?|cash registers?|registers?|card terminals?|pos)";
+  const failureTerm = "(?:down|broken|stopped|failed|failing|offline|error|unavailable|not working|aren['’]?t working|isn['’]?t working|can['’]?t pay|cannot pay|won['’]?t accept|can['’]?t process|declined)";
+  const outage = new RegExp("\\b" + systemTerm + "\\b.{0,65}\\b" + failureTerm + "\\b|\\b" + failureTerm + "\\b.{0,65}\\b" + systemTerm + "\\b", "i");
   const highPriority = /\b(?:urgent|asap|emergency|immediately|today|critical)\b|\bright now\b/i;
   const mediumPriority = /\b(?:tomorrow|this week|next week|soon|deadline)\b|\b(?:by|next|this) (?:monday|tuesday|wednesday|thursday|friday|saturday|sunday)\b/i;
   const email = /\b[A-Za-z0-9.!#$%&'*+/=?^_{}|~-]+@[A-Za-z0-9-]+(?:\.[A-Za-z0-9-]+)+\b/g;
