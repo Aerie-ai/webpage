@@ -8,7 +8,20 @@
 
 Aerie combines enquiry-handling automations and simple digital tools for small independent businesses. Products and services should be measurable, useful and easy to understand.
 
-## Three service concepts to validate
+## What Aerie offers — separate the business from the demo
+
+Aerie's proposed business has **two complementary ways to help independent businesses**:
+
+1. **Digital products:** ready-to-use calculators, checklists, enquiry organisers and similar lightweight tools that businesses can use themselves. The quotation workbook and interactive Lab are currently **free demonstrations only**. No paid product has launched.
+2. **Tailored automation setup:** a proposed service helping a business map its repetitive tasks, select appropriate tools and configure human-reviewed workflows for enquiries, quoting and follow-ups. **This is not currently being sold or deployed to clients.**
+
+**Aerie Lab** is a fictional-data testing space that demonstrates product concepts. It is **not itself a paid product or a deployed customer service**.
+
+The first product concepts are Enquiry Desk and Quote Ready; Follow-Up Assistant is planned. Future commercial packaging, pricing and support commitments remain undecided.
+
+The sustainability and privacy principles apply to both offerings: collect the minimum data, favour simpler processing where sufficient, require human oversight for consequential actions, and measure before making environmental claims.
+
+## Three initial workflow concepts to validate
 
 ### 1. Enquiry Desk
 **Problem:** Requests arrive through multiple channels and get overlooked.
