@@ -12,6 +12,7 @@ import re
 from collections import Counter
 from pathlib import Path
 from operations import prepare_action, OUTAGE
+from privacy import redact_sensitive, decide_execution
 
 ROOT = Path(__file__).resolve().parents[1]
 INPUT = ROOT / "sample_data" / "enquiries.csv"
@@ -94,7 +95,8 @@ def priority_for(message: str) -> str:
 
 def process_enquiry(row: dict[str, str]) -> dict:
     enquiry_id = (row.get("id") or "").strip()
-    message = " ".join((row.get("message") or "").split())[:3000]
+    raw_message = " ".join((row.get("message") or "").split())[:3000]
+    message, security_flags = redact_sensitive(raw_message)
     if not enquiry_id or not message:
         raise ValueError("Each fictional enquiry needs a non-empty id and message")
     category, matched_terms = classify(message)
@@ -102,6 +104,7 @@ def process_enquiry(row: dict[str, str]) -> dict:
     topic = next((t for t in TOPICS if re.search(r"\b" + re.escape(t) + r"\b", message, re.I)), None)
 
     action = prepare_action(category, message, priority, row.get("quote_inputs"))
+    execution_policy = decide_execution(category, security_flags, message)
     questions = QUESTION_BANK[category][:]
     if category == "quotation":
         extracted = action["extracted"]
@@ -148,6 +151,7 @@ def process_enquiry(row: dict[str, str]) -> dict:
         "summary": (message[:157] + "...") if len(message) > 160 else message,
         "matched_terms": matched_terms,
         "suggested_action": action,
+        "privacy_routing": execution_policy,
         "questions_to_ask": questions[:2],
         "draft": draft,
         "review_required": True,
@@ -176,6 +180,7 @@ def render_dashboard(records: list[dict]) -> str:
     for r in records:
         questions = "".join(f"<li>{e(q)}</li>" for q in r["questions_to_ask"])
         action = r["suggested_action"]
+        policy = r["privacy_routing"]
         steps = "".join(f"<li>{e(step)}</li>" for step in action["next_steps"])
         estimate = action.get("estimate")
         estimate_html = (f'<div class="draft">Illustrative internal estimate: €{e(estimate["internal_estimate"])} (NOT a customer quote; human approval required).</div>' if estimate else "")
@@ -187,6 +192,7 @@ def render_dashboard(records: list[dict]) -> str:
             f'<p class="caption">Fictional enquiry · Human approval required</p>'
             f'<h3>Customer message</h3><p>{e(r["message"])}</p>'
             f'<h3>Suggested follow-up questions</h3><ul>{questions}</ul>'
+            f'<h3>Privacy-first routing</h3><p>{e(policy["route"])} · External AI calls: 0 · Review required</p>'
             f'<h3>Proposed tool: {e(action["tool"])}</h3><ul>{steps}</ul>'
             f'{estimate_html}<h3>Prepared reply — not sent</h3><div class="draft">{e(r["draft"])}</div></article>'
         )
@@ -231,7 +237,7 @@ footer{{font-size:13px;color:var(--muted);padding-top:24px}}#empty{{display:none
 <option value="high">High</option><option value="medium">Medium</option><option value="normal">Normal</option></select></div>
 <p id="empty">No enquiries match these filters.</p>
 <section class="list" id="enquiries">{''.join(cards)}</section>
-<footer>This report is generated from sample_data/enquiries.csv by the Aerie pilot. All classifications and drafts are suggestions and require review. No network connection or personal data is required.</footer>
+<footer>This report is generated from fictional examples by the Aerie pilot. All classifications and drafts are suggestions and require review. No network connection or personal data is required.</footer>
 </main>
 <script>
 const controls=['search','category','priority'].map(id=>document.getElementById(id));
