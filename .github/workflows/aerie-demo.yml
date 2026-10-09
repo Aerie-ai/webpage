@@ -1,0 +1,28 @@
+name: Aerie sample enquiry demo
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'agent/**'
+      - 'sample_data/**'
+      - '.github/workflows/aerie-demo.yml'
+
+jobs:
+  test-demo:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Process fictional enquiries
+        run: python agent/run.py
+      - name: Upload review report
+        uses: actions/upload-artifact@v4
+        with:
+          name: aerie-review-report
+          path: output/report.json
+          retention-days: 7
