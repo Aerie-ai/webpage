@@ -40,7 +40,7 @@ footer{border-top:1px solid var(--line);padding:22px 24px;font-size:12px;color:v
 <main class="shell">
 <div class="warning"><strong>Fictional-data laboratory only.</strong> Please do not paste real customer enquiries, names, passwords, payments, contact details or confidential business records here. Pattern-based redaction is incomplete and does not make real data safe.</div>
 <section class="columns" aria-label="Experimental tools">
-<div class="card"><p class="mark">01 / Enquiry desk</p><h2>Understand an enquiry</h2>
+<div class="card" id="enquiries"><p class="mark">01 / Enquiry desk</p><h2>Understand an enquiry</h2>
 <p class="muted">Choose a fictional customer or enter a completely invented message. Routing is currently rules-based, not generative AI.</p>
 <label for="case">Sample fictional customer</label><select id="case"><option value="">Choose a scenario...</option>
 <option value="0">Harbour &amp; Pine Gifts — Checkout failure</option>
@@ -61,7 +61,7 @@ footer{border-top:1px solid var(--line);padding:22px 24px;font-size:12px;color:v
 <h3>Proposed next steps</h3><ul id="steps"></ul>
 </div>
 </div>
-<div class="card"><p class="mark">02 / Human approval</p><h2>Draft review desk</h2>
+<div class="card" id="review"><p class="mark">02 / Human approval</p><h2>Draft review desk</h2>
 <p class="muted">Edit the proposed response, approve it for your own review records, or reject it. Approval only changes this temporary display; it never sends anything.</p>
 <label for="draft">Editable response</label><textarea id="draft" class="draft" disabled placeholder="Analyse a fictional enquiry to prepare a response."></textarea>
 <div class="buttons"><button id="approve" type="button" class="btn secondary" disabled>Mark approved</button><button id="reject" type="button" class="btn ghost" disabled>Reject draft</button><button id="revise" type="button" class="btn ghost" disabled>Reset draft</button></div>
@@ -69,7 +69,7 @@ footer{border-top:1px solid var(--line);padding:22px 24px;font-size:12px;color:v
 <p class="small muted">All approvals are local to this page. Reloading clears them. No history, messages or data are transmitted by the review tools.</p>
 </div>
 </section>
-<section class="card wide" aria-label="Quotation calculator"><p class="mark">03 / Quote Ready</p><h2>From intake to an internal estimate</h2>
+<section class="card wide" id="quote" aria-label="Quotation calculator"><p class="mark">03 / Quote Ready</p><h2>From intake to an internal estimate</h2>
 <p class="muted">Build a fictional cost estimate and export the line items as CSV for a spreadsheet. It is not a binding quotation, and VAT is not calculated. This is separate from the existing downloadable Excel calculator.</p>
 <div class="columns">
 <div>
