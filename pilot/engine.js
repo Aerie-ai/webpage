@@ -11,7 +11,7 @@
   const systemTerm = "(?:checkout|website|site|system|payments?|tills?|cash registers?|registers?|card terminals?|pos)";
   const failureTerm = "(?:down|broken|stopped|failed|failing|offline|error|unavailable|not working|aren['’]?t working|isn['’]?t working|can['’]?t pay|cannot pay|won['’]?t accept|can['’]?t process|declined)";
   const outage = new RegExp("\\b" + systemTerm + "\\b.{0,65}\\b" + failureTerm + "\\b|\\b" + failureTerm + "\\b.{0,65}\\b" + systemTerm + "\\b", "i");
-  const highPriority = /\b(?:urgent|asap|emergency|immediately|today|critical)\b|\bright now\b/i;
+  const highPriority = /\b(?:urgent(?:ly)?|asap|emergency|immediate(?:ly)?|today|critical)\b|\bright now\b/i;
   const mediumPriority = /\b(?:tomorrow|this week|next week|soon|deadline)\b|\b(?:by|next|this) (?:monday|tuesday|wednesday|thursday|friday|saturday|sunday)\b/i;
   const email = /\b[A-Za-z0-9.!#$%&'*+/=?^_{}|~-]+@[A-Za-z0-9-]+(?:\.[A-Za-z0-9-]+)+\b/g;
   const url = /\bhttps?:\/\/[^\s<>"']+/gi;
