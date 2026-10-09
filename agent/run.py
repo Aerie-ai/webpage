@@ -70,7 +70,7 @@ OPENINGS = {
 }
 TOPICS = ("repair", "installation", "carpentry", "landscaping", "cleaning",
           "plumbing", "website", "maintenance", "invoice", "delivery")
-HIGH = re.compile(r"\b(?:urgent|asap|emergency|immediately|today|critical)\b|\bright now\b", re.I)
+HIGH = re.compile(r"\b(?:urgent(?:ly)?|asap|emergency|immediate(?:ly)?|today|critical)\b|\bright now\b", re.I)
 MEDIUM = re.compile(r"\b(?:tomorrow|this week|next week|soon|deadline)\b|\bby (?:monday|tuesday|wednesday|thursday|friday|saturday|sunday)\b|\b(?:next|this) (?:monday|tuesday|wednesday|thursday|friday|saturday|sunday)\b", re.I)
 
 
