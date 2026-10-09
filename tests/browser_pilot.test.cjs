@@ -52,6 +52,15 @@ test("estimates match known spreadsheet logic", () => {
   assert.equal(q.approved, false);
 });
 
+test("quotation intake flows to calculator with no invented price", () => {
+  const hint = pilot.quoteIntake("Can I get an estimate for deck repair in Galway next month?");
+  assert.equal(hint.locationHint, "Galway");
+  assert.match(hint.scopeHint, /deck/);
+  assert.equal(hint.costsInferred, false);
+  assert.equal(hint.priceAgreed, false);
+  assert.equal(hint.approvalRequired, true);
+});
+
 test("invalid quote inputs rejected rather than silently accepted", () => {
   const good = {hours:8, rate:35, materials:120, overheads:40, markup:20};
   for (const [field,value] of [["hours",""],["rate",-1],["materials","NaN"],["markup",501]]) {
