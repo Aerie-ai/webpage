@@ -6,23 +6,43 @@ on:
     paths:
       - 'agent/**'
       - 'sample_data/**'
+      - 'pilot/**'
+      - 'tests/**'
+      - '.github/workflows/aerie-demo.yml'
+  pull_request:
+    paths:
+      - 'agent/**'
+      - 'sample_data/**'
       - '.github/workflows/aerie-demo.yml'
 
 jobs:
   test-demo:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     permissions:
       contents: read
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: '3.12'
+      - name: Test agent
+        run: python -m unittest discover -s agent -p 'test_*.py' -v
+      - name: Test static Aerie Lab locally (built-in Node test runner)
+        run: node --test tests/*.test.cjs
       - name: Process fictional enquiries
         run: python agent/run.py
-      - name: Upload review report
+      - name: Evaluate realistic fictional client cases
+        run: python agent/mock_client_evaluation.py
+      - name: Upload offline review dashboard and reports
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: aerie-review-report
-          path: output/report.json
+          path: |
+            output/report.json
+            output/dashboard.html
+            output/summary.md
+            output/mock_clients_results.json
+            output/mock_clients_results.md
+            output/mock_clients_dashboard.html
           retention-days: 7
