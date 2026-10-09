@@ -6,6 +6,8 @@ on:
     paths:
       - 'agent/**'
       - 'sample_data/**'
+      - 'pilot/**'
+      - 'tests/**'
       - '.github/workflows/aerie-demo.yml'
   pull_request:
     paths:
@@ -25,6 +27,8 @@ jobs:
           python-version: '3.12'
       - name: Test agent
         run: python -m unittest discover -s agent -p 'test_*.py' -v
+      - name: Test static Aerie Lab locally (built-in Node test runner)
+        run: node --test tests/*.test.cjs
       - name: Process fictional enquiries
         run: python agent/run.py
       - name: Evaluate realistic fictional client cases
