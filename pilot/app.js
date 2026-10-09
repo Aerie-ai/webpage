@@ -47,6 +47,12 @@
       $("route").textContent = info.route;
       $("redactions").textContent = info.redactionFlags.length ? info.redactionFlags.join(", ") : "None detected (not a guarantee)";
       $("aiCalls").textContent = String(info.externalModelCalls);
+      if (info.category === "quotation" || info.steps.some(function (step) { return step.includes("secondary quotation"); })) {
+        const intake = AeriePilot.quoteIntake(info.message);
+        if (intake.scopeHint && !$("jobScope").value.trim()) $("jobScope").value = intake.scopeHint;
+        if (intake.locationHint && !$("jobLocation").value.trim()) $("jobLocation").value = intake.locationHint;
+        quoteChanged();
+      }
       const steps = $("steps");
       steps.replaceChildren();
       info.steps.forEach(function (step) {
