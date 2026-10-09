@@ -19,7 +19,7 @@ DAY_PATTERN = r"\b(?:mon(?:day)?|tue(?:sday)?|wed(?:nesday)?|thu(?:rsday)?|fri(?
 LOCATION_PATTERN = r"\b(?:in|near|at)\s+(Galway|Limerick|Cork|Dublin|Clare|Ennis|Kilkenny|Sligo|Waterford)\b"
 SYSTEM_TERM = r"(?:checkout|website|site|system|payments?|tills?|cash registers?|registers?|card terminals?|pos)"
 FAILURE_TERM = r"(?:down|broken|stopped|failed|failing|offline|error|unavailable|not working|aren['’]?t working|isn['’]?t working|can['’]?t pay|cannot pay|won['’]?t accept|can['’]?t process|declined)"
-OUTAGE = re.compile(rf"\\b{SYSTEM_TERM}\\b.{{0,65}}\\b{FAILURE_TERM}\\b|\\b{FAILURE_TERM}\\b.{{0,65}}\\b{SYSTEM_TERM}\\b".replace(r"\\b", r"\b"), re.I)
+OUTAGE = re.compile(rf"\b{SYSTEM_TERM}\b.{{0,65}}\b{FAILURE_TERM}\b|\b{FAILURE_TERM}\b.{{0,65}}\b{SYSTEM_TERM}\b", re.I)
 
 
 def estimate_job(labour_hours, hourly_rate, materials, overheads, markup_percent):
