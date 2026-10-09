@@ -15,6 +15,7 @@ OUTPUT = ROOT / "output"
 def evaluate(case: dict) -> dict:
     result = process_enquiry({
         "id": case["id"],
+        "fake_client": case["fake_client"],
         "message": case["message"],
         "quote_inputs": case.get("quote_inputs"),
     })
@@ -102,7 +103,7 @@ def main() -> None:
         markdown.append("- None in this test set")
     (OUTPUT / "mock_clients_results.md").write_text("\n".join(markdown) + "\n", encoding="utf-8")
     enriched = [process_enquiry({
-        "id": case["id"], "message": case["message"],
+        "id": case["id"], "fake_client": case["fake_client"], "message": case["message"],
         "quote_inputs": case.get("quote_inputs"),
     }) for case in cases]
     (OUTPUT / "mock_clients_dashboard.html").write_text(render_dashboard(enriched), encoding="utf-8")
