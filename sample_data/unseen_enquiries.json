@@ -1,0 +1,128 @@
+[
+  {
+    "id": "U01",
+    "fake_client": "Market Square Books",
+    "message": "Our shop tills aren't working and we need immediate help!",
+    "category": "support",
+    "priority": "high",
+    "possible_outage": true
+  },
+  {
+    "id": "U02",
+    "fake_client": "Bay View Café",
+    "message": "Customers can't pay by card at our checkout right now.",
+    "category": "support",
+    "priority": "high",
+    "possible_outage": true
+  },
+  {
+    "id": "U03",
+    "fake_client": "Hilltop Grocers",
+    "message": "Our cash registers are offline today.",
+    "category": "support",
+    "priority": "high",
+    "possible_outage": true
+  },
+  {
+    "id": "U04",
+    "fake_client": "Fictional Mailing Recipient",
+    "message": "Please stop sending me marketing emails.",
+    "category": "privacy",
+    "priority": "normal"
+  },
+  {
+    "id": "U05",
+    "fake_client": "Fictional Marketing Contact",
+    "message": "Please remove my details from your mailing list.",
+    "category": "privacy",
+    "priority": "normal"
+  },
+  {
+    "id": "U06",
+    "fake_client": "Willow Carpentry",
+    "message": "We'd like a price for a repair in Ennis next month.",
+    "category": "quotation",
+    "priority": "normal"
+  },
+  {
+    "id": "U07",
+    "fake_client": "Lakeshore Studio",
+    "message": "Could we have a call next Tuesday about the intake process?",
+    "category": "appointments",
+    "priority": "medium"
+  },
+  {
+    "id": "U08",
+    "fake_client": "Seafront Studio",
+    "message": "Would it be possible to arrange a video call?",
+    "category": "appointments",
+    "priority": "normal"
+  },
+  {
+    "id": "U09",
+    "fake_client": "Old Harbour Shop",
+    "message": "Our shop payment system has been offline since yesterday; how much to fix it?",
+    "category": "support",
+    "priority": "normal",
+    "possible_outage": true
+  },
+  {
+    "id": "U10",
+    "fake_client": "Fictional Account Holder",
+    "message": "Please erase my account information before next week.",
+    "category": "privacy",
+    "priority": "medium"
+  },
+  {
+    "id": "U11",
+    "fake_client": "Poppy Florist",
+    "message": "Our online card terminal is not working, can you help?",
+    "category": "support",
+    "priority": "normal",
+    "possible_outage": true
+  },
+  {
+    "id": "U12",
+    "fake_client": "Shore Bakery",
+    "message": "Could you confirm the availability of your services?",
+    "category": "services",
+    "priority": "normal"
+  },
+  {
+    "id": "U13",
+    "fake_client": "Moorside Repair",
+    "message": "Can you confirm you repaired my checkout and issued a refund?",
+    "category": "support",
+    "priority": "normal"
+  },
+  {
+    "id": "U14",
+    "fake_client": "Independent Shop",
+    "message": "I need a quote for a small API fix.",
+    "category": "quotation",
+    "priority": "normal"
+  },
+  {
+    "id": "U15",
+    "fake_client": "Waterside Salon",
+    "message": "Our card terminal won't accept payments urgently.",
+    "category": "support",
+    "priority": "high",
+    "possible_outage": true
+  },
+  {
+    "id": "U16",
+    "fake_client": "Seabreeze Supply",
+    "message": "The payment system isn't working and we also need an estimate.",
+    "category": "support",
+    "priority": "normal",
+    "possible_outage": true
+  },
+  {
+    "id": "U17",
+    "fake_client": "Fictional Newsletter Contact",
+    "message": "I no longer wish to receive promotional messages.",
+    "category": "privacy",
+    "priority": "normal"
+  }
+]
