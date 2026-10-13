@@ -64,3 +64,22 @@ test("Aerie Lab remains deliberately isolated from external systems", () => {
   assert.match(lab, /Fictional-data laboratory only/);
   assert.match(lab, /No paid model calls/);
 });
+
+
+test("Commercial offer distinguishes tools from planned tailored services", () => {
+  assert.match(home, /DIGITAL PRODUCTS/);
+  assert.match(home, /AUTOMATION SERVICES/);
+  assert.match(home, /Tools you can use yourself/);
+  assert.match(home, /Workflows tailored to your business/);
+  assert.match(home, /Products not yet for sale/);
+  assert.match(home, /Not currently taking on paying clients/);
+  assert.match(home, /Aerie Lab is our free demonstration space—not a paid service/);
+});
+
+test("Homepage explains the task and gives a useful next step above the fold", () => {
+  assert.match(home, /Less admin/);
+  assert.match(home, /manage customer enquiries, prepare quotations and keep work organised/);
+  assert.match(home, /See what Aerie offers/);
+  assert.match(home, /Try our free demos/);
+  assert.match(home, /Commercial products and setup services are in development/);
+});
