@@ -40,6 +40,34 @@
       measuredEnergy: false
     };
   }
+  function equipmentPortfolio(rows) {
+    if (!Array.isArray(rows) || rows.length < 1 || rows.length > 40) {
+      throw new RangeError("Provide between 1 and 40 fictional equipment scenarios");
+    }
+    const items = rows.map((row, index) => {
+      const estimate = equipmentEstimate(row);
+      return {
+        index: index + 1,
+        label: String(row.label || "Example equipment " + (index + 1)).trim().slice(0, 60),
+        annualKwh: estimate.annualKwh,
+        annualCostEuro: estimate.annualCostEuro,
+        potentialKwhAvoided: estimate.potentialKwhAvoided,
+        potentialCostAvoidedEuro: estimate.potentialCostAvoidedEuro
+      };
+    });
+    const sum = key => round(items.reduce((acc, item) => acc + item[key], 0), 2);
+    return {
+      items,
+      annualKwh: sum("annualKwh"),
+      annualCostEuro: sum("annualCostEuro"),
+      potentialKwhAvoided: sum("potentialKwhAvoided"),
+      potentialCostAvoidedEuro: sum("potentialCostAvoidedEuro"),
+      modelCalls: 0,
+      externalActions: 0,
+      measuredEnergy: false,
+      note: "Fictional equipment inventory. Figures add owner-entered scenarios; overlapping devices, unsafe shutdowns, and coincident or variable loads may invalidate savings assumptions."
+    };
+  }
   function computeEstimate(raw) {
     const tasksPerDay = number("Tasks per day", raw.tasksPerDay, 0, 1000000);
     const daysPerYear = number("Active days per year", raw.daysPerYear, 0, 366);
@@ -114,7 +142,7 @@
       modelCalls: 0, externalActions: 0
     };
   }
-  const api = Object.freeze({equipmentEstimate, computeEstimate, workflowPlan});
+  const api = Object.freeze({equipmentEstimate, equipmentPortfolio, computeEstimate, workflowPlan});
   if (typeof module !== "undefined" && module.exports) module.exports = api;
   root.AerieStudio = api;
 })(typeof window !== "undefined" ? window : globalThis);
