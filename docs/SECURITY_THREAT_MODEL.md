@@ -26,6 +26,12 @@ Updated: 18 October 2026. **Development planning, not a penetration-test certifi
 | **Offline sync conflicts / replayed actions** | A delayed offline instruction can send a duplicate invoice or override a newer approval | Offline-first sync needs authenticated conflict resolution, idempotency keys, approval-bound versions, replay protection and explicit status. No sync exists yet. |
 | **Malicious dependencies / service-worker cache persistence** | A hijacked dependency or persistent injected offline bundle can survive a page refresh | Lab has no third-party runtime libraries or service worker. If added: strict CSP, reviewed pinned dependencies, reproducible builds and explicit cache/update/rollback design. |
 
+## Local-first and measured-efficiency constraints
+
+Security must not depend on centralising customer records or always-on model inference. Aerie's target is to process routine tasks on customer-controlled devices, store data under customer-selected control, keep network/AI use optional and minimal, and use narrowly scoped credentials only for integrations that need them. **This is a proposed data architecture, not delivered encrypted storage or decentralised sync.**
+
+Efficiency and security must both be measurable: guard public source bytes, count external calls, establish reproducible synthetic benchmarks and measure actual device/server energy before any sustainability claims. Security review must still cover customer-device compromise, malicious updates, lost keys and offline-sync replay. The policy and CI tests are specified in [ARCHITECTURE_LOCAL_FIRST.md](ARCHITECTURE_LOCAL_FIRST.md).
+
 ## Layered architecture before real clients
 
 1. **Identity boundary:** Passkeys/MFA, limited admin accounts, account recovery and revocation; no shared admin logins.
