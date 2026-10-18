@@ -37,16 +37,16 @@ CATEGORIES = {"quotation", "appointments", "support", "services", "privacy", "ge
 # A conservative additional safeguard on untrusted model-generated draft text.
 # These patterns catch obvious failures; they are not a general LLM security oracle.
 UNSAFE_DRAFT = re.compile(
-    r"\\b(?:send|share|provide|enter|upload|reply with)\\b.{0,70}"
-    r"\\b(?:password|passcode|otp|one.time code|security code|card number|cvv|"
-    r"api key|private key|identity documents?)\\b"
-    r"|\\b(?:we have|we've|i have)\\s+(?:already\\s+)?"
-    r"(?:sent|fixed|booked|approved|refunded|charged|deleted|processed)\\b"
-    r"|\\b(?:refund has been approved|booking (?:is|has been) confirmed|"
-    r"payment (?:is|has been) processed)\\b",
+    r"\b(?:send|share|provide|enter|upload|reply with)\b.{0,70}"
+    r"\b(?:password|passcode|otp|one.time code|security code|card number|cvv|"
+    r"api key|private key|identity documents?)\b"
+    r"|\b(?:we have|we've|i have)\s+(?:already\s+)?"
+    r"(?:sent|fixed|booked|approved|refunded|charged|deleted|processed)\b"
+    r"|\b(?:refund has been approved|booking (?:is|has been) confirmed|"
+    r"payment (?:is|has been) processed)\b",
     re.I,
 )
-UNVERIFIED_LINK = re.compile(r"\\b(?:https?://|www\\.)", re.I)
+UNVERIFIED_LINK = re.compile(r"\b(?:https?://|www\.)", re.I)
 
 
 class RejectRedirects(request.HTTPRedirectHandler):
