@@ -14,7 +14,7 @@ test("formula prefixes cannot become initial spreadsheet cell content", () => {
     const cell = csv.cell(value);
     assert.ok(cell.startsWith('"'), "Must quote every cell");
     assert.match(cell, /^"\t\s*[=+\-@]/u, value);
-    assert.doesNotMatch(cell, /[\u0000-\u001F\u007F-\u009F\u200B-\u200D\u2060\uFEFF\u202A-\u202E\u2066-\u2069]/u.test(cell.slice(2)) ? /[\u200B-\u200D\u2060\uFEFF\u202A-\u202E\u2066-\u2069]/u : /(?!)/u);
+    assert.doesNotMatch(cell, /[\u200B-\u200D\u2060\uFEFF\u202A-\u202E\u2066-\u2069]/u);
   }
 });
 
