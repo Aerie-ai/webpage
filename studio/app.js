@@ -86,6 +86,63 @@
       message(box, r.assumption + " Never reduce operation where safety, refrigeration or critical processes depend on it.");
     } catch (error) { resultError("energyResult", error); }
   });
+
+  // In-memory fictional equipment plan: never synced, logged or persisted.
+  const equipmentScenarios=[];
+  function equipmentInput(){
+    return {
+      label:value("equipmentLabel"), watts:value("watts"), units:value("units"),
+      hoursPerDay:value("hoursPerDay"), daysPerWeek:value("daysPerWeek"),
+      weeksPerYear:value("energyWeeks"), euroPerKwh:value("energyTariff"),
+      hoursReducedPerDay:value("hoursReduced")
+    };
+  }
+  function renderEquipment(){
+    const box=clear("portfolioResult");
+    if(!equipmentScenarios.length){
+      message(box,"No equipment scenarios added. Nothing is stored between sessions.");
+      $("energyPortfolioCsv").disabled=true; return;
+    }
+    const result=AerieStudio.equipmentPortfolio(equipmentScenarios);
+    heading(box,euro(result.annualCostEuro) + " illustrative annual portfolio cost");
+    metric(box,"Portfolio electricity",number(result.annualKwh)+" kWh/year");
+    metric(box,"Hypothetical reduced operating costs",euro(result.potentialCostAvoidedEuro)+"/year");
+    result.items.forEach(item=>{
+      const block=node("div",undefined,"mini");
+      block.appendChild(node("strong",item.index+". "+item.label));
+      message(block,number(item.annualKwh)+" kWh/year · "+euro(item.annualCostEuro)+" per year; possible change "+euro(item.potentialCostAvoidedEuro));
+      box.appendChild(block);
+    });
+    message(box,result.note);
+    $("energyPortfolioCsv").disabled=false;
+  }
+  $("energyAdd").addEventListener("click",()=>{
+    try{
+      if(equipmentScenarios.length>=40)throw new RangeError("Only 40 fictional equipment types can be compared at once.");
+      const record=equipmentInput();
+      AerieStudio.equipmentEstimate(record);
+      equipmentScenarios.push(record);
+      renderEquipment();
+    }catch(error){resultError("portfolioResult",error);}
+  });
+  $("energyReset").addEventListener("click",()=>{
+    equipmentScenarios.length=0;renderEquipment();
+  });
+  $("energyPortfolioCsv").addEventListener("click",()=>{
+    if(!equipmentScenarios.length)return;
+    const data=AerieStudio.equipmentPortfolio(equipmentScenarios);
+    const rows=[["Field","Fictional value"],["Kind","Equipment scenario assumptions - NOT METERED"],
+      ["Annual portfolio kWh",data.annualKwh],["Annual portfolio cost EUR",data.annualCostEuro],
+      ["Hypothetical avoided kWh",data.potentialKwhAvoided],
+      ["Hypothetical avoided cost EUR",data.potentialCostAvoidedEuro]];
+    data.items.forEach(item=>{
+      rows.push(["Equipment "+item.index+" "+item.label,
+        item.annualKwh+" kWh per year; EUR "+item.annualCostEuro+" annual cost"]);
+    });
+    rows.push(["Warning",data.note]);
+    downloadCsv(rows,"aerie-fictional-energy-portfolio.csv");
+  });
+
   $("computeGo").addEventListener("click", () => {
     try {
       const r = AerieStudio.computeEstimate({
@@ -157,6 +214,52 @@
       message(box,r.note);
     }catch(error){resultError("followResult",error);}
   });
+
+  const followCases=[];
+  function followInput(){
+    return {stage:value("followStage"),daysElapsed:value("followDays"),
+      contactPermission:checked("followAllowed"),optOut:checked("followOptOut")};
+  }
+  function renderFollowQueue(){
+    const box=clear("followQueueResult");
+    if(!followCases.length){
+      message(box,"No fictional cases added. Reloading clears the queue.");
+      $("followCsv").disabled=true;return;
+    }
+    heading(box,followCases.length+" fictional cases awaiting review");
+    const blocked=followCases.filter(item=>!item.needsReview).length;
+    metric(box,"Held/not due/closed",blocked);
+    followCases.forEach((item,index)=>{
+      const line=node("div",undefined,"mini");
+      line.appendChild(node("strong","Fictional case "+(index+1)+" — "+item.status));
+      message(line,item.suggestion);
+      box.appendChild(line);
+    });
+    message(box,"No messages are sent. These cases do not establish a lawful contact basis.");
+    $("followCsv").disabled=false;
+  }
+  $("followAdd").addEventListener("click",()=>{
+    try{
+      if(followCases.length>=30)throw new RangeError("The temporary fictional queue holds up to 30 cases.");
+      followCases.push(AerieProducts.followUp(followInput()));
+      renderFollowQueue();
+    }catch(error){resultError("followQueueResult",error);}
+  });
+  $("followClear").addEventListener("click",()=>{
+    followCases.length=0;renderFollowQueue();
+  });
+  $("followCsv").addEventListener("click",()=>{
+    if(!followCases.length)return;
+    const rows=[["Field","Fictional value"],["Kind","Internal review queue - NOT SENT"]];
+    followCases.forEach((item,index)=>{
+      rows.push(["Case "+(index+1)+" stage",item.stage]);
+      rows.push(["Case "+(index+1)+" decision",item.status]);
+      rows.push(["Case "+(index+1)+" review",item.suggestion]);
+    });
+    rows.push(["Warning","Generic fictional queue. No customer identifiers, messages or automatic sending."]);
+    downloadCsv(rows,"aerie-fictional-follow-up-queue.csv");
+  });
+
   $("followOptOut").addEventListener("change",()=>{
     if(checked("followOptOut")){$("followAllowed").checked=false;}
   });
