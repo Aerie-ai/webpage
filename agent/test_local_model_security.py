@@ -103,6 +103,23 @@ class TestOptionalLocalModelSafety(unittest.TestCase):
             with self.subTest(value=value), self.assertRaises(ValueError):
                 parse_model_response(fake_response(value))
 
+    def test_markup_controls_and_untrusted_explanations_are_blocked(self):
+        unsafe_cases = [
+            fake_response("<img src=x onerror=alert(1)> Read this explanation."),
+            fake_response("Hello. We can review your request.\\u202E"),
+            fake_response(
+                "We can review the fictional request.",
+                short_reason="Please enter your password to proceed.",
+            ),
+            fake_response(
+                "We can review the fictional request.",
+                short_reason="Go to https://example.invalid/now",
+            ),
+        ]
+        for response in unsafe_cases:
+            with self.subTest(response=response[:70]), self.assertRaises(ValueError):
+                parse_model_response(response)
+
     def test_redirect_to_external_url_is_blocked_without_connection(self):
         handler = RejectRedirects()
         req = request.Request(
