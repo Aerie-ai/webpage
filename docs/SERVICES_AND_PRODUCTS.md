@@ -17,7 +17,7 @@ Aerie's proposed business has **two complementary ways to help independent busin
 
 **Aerie Lab** is a fictional-data testing space that demonstrates product concepts. It is **not itself a paid product or a deployed customer service**.
 
-The first product concepts are Enquiry Desk and Quote Ready; Follow-Up Assistant is planned. Future commercial packaging, pricing and support commitments remain undecided.
+The first product concepts were Enquiry Desk and Quote Ready. A separate **Aerie Studio** now prototypes Flow, Energy, Quote, Follow-Up, Field and Guardian for *fictional-only* work, including sector-specific workflow ideas, energy equipment scenarios, review-only queues and downloadable example checklists. These are **not yet commercial products or connected client services**. Future packaging, pricing and support remain undecided.
 
 The sustainability and privacy principles apply to both offerings: collect the minimum data, favour simpler processing where sufficient, require human oversight for consequential actions, and measure before making environmental claims.
 
@@ -45,6 +45,10 @@ The sustainability and privacy principles apply to both offerings: collect the m
 - Identify unanswered questions or leads needing attention.
 - Respect opt-outs and any applicable consent/marketing rules.
 - Pilot measure: response timeliness, avoiding unsolicited communications.
+
+## New six-tool Studio (fictional-data demonstrations)
+
+Aerie Studio is available locally at `studio/index.html` and will be linked from the public site after its reviewed PR is merged. See [STUDIO_PRODUCTS.md](STUDIO_PRODUCTS.md) for the six functioning product concepts, example customer problems, maths and limits. No real customer data or third-party service is accessed, and no measured energy or carbon saving is claimed.
 
 ## Digital product pipeline
 

@@ -6,6 +6,7 @@ const path = require("node:path");
 const root = path.join(__dirname, "..");
 const home = fs.readFileSync(path.join(root, "index.html"), "utf8");
 const lab = fs.readFileSync(path.join(root, "pilot", "index.html"), "utf8");
+const studio = fs.readFileSync(path.join(root, "studio", "index.html"), "utf8");
 
 test("Aerie homepage retains original brand assets", () => {
   assert.match(home, /Aerie nest sheltered by a mountain at sunset/);
@@ -38,7 +39,7 @@ test("Main site navigation and Lab anchors exist", () => {
 });
 
 test("All local HTML page and asset links resolve in repository", () => {
-  for (const [html, folder] of [[home,root], [lab,path.join(root,"pilot")]]) {
+  for (const [html, folder] of [[home,root], [lab,path.join(root,"pilot")], [studio,path.join(root,"studio")]]) {
     const matches = html.matchAll(/\b(?:href|src)="([^"]+)"/g);
     for (const match of matches) {
       const url = match[1];
@@ -65,6 +66,14 @@ test("Aerie Lab remains deliberately isolated from external systems", () => {
   assert.match(lab, /No paid model calls/);
 });
 
+
+test("New Studio is available from both website and Lab", () => {
+  assert.ok(home.includes('href="studio/"'));
+  assert.ok(lab.includes('href="../studio/"'));
+  for (const id of ["flow","energy","quote","follow","field","guardian"]) {
+    assert.ok(studio.includes('id="'+id+'"'),id);
+  }
+});
 
 test("Commercial offer distinguishes tools from planned tailored services", () => {
   assert.match(home, /DIGITAL PRODUCTS/);

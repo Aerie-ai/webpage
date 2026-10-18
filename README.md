@@ -10,6 +10,7 @@ These are the GitHub Pages site addresses (availability also depends on GitHub P
 
 - **Homepage:** https://aerie-ai.github.io/webpage/
 - **Interactive Aerie Lab:** https://aerie-ai.github.io/webpage/pilot/
+- **Aerie Studio — six fictional business tools:** https://aerie-ai.github.io/webpage/studio/
 - **Quotation builder:** https://aerie-ai.github.io/webpage/pilot/#quote
 - **Enquiry analyser:** https://aerie-ai.github.io/webpage/pilot/#enquiries
 
@@ -33,11 +34,12 @@ If you have not enabled Pages, you can still download the repository ZIP using G
 | Aerie Lab enquiry analysis | Browser-local keyword rules and synthetic examples |
 | Draft review | Edit, mark approved/rejected locally; **nothing gets sent** |
 | Quote Ready | Internal, fictional calculator with CSV export |
+| Aerie Studio | Six locally running fictional workflows: Flow, Energy (+ equipment portfolio), Quote, Follow-Up (temporary queue), Field and Guardian |
 | Original spreadsheet | `Job_Quote_Calculator_DEMO.xlsx` (downloadable demo) |
 | Python enquiry agent | Offline rules-based demonstration, not a production backend |
 | AI language model | Optional loopback adapter in `agent/local_model.py`, **not connected** |
 | Live enquiries, messaging, payments, bookings | **Not enabled** |
-| Follow-Up Assistant | Planned, not implemented |
+| Follow-Up Assistant | Studio offers a fictional review queue; live reminders, authorised contact and calendar/mail connections are not implemented |
 
 Aerie's sustainability approach is to do simple operations locally when they are sufficient, rather than defaulting to expensive model inference. We **have not measured actual energy use or carbon emissions**, and we make no carbon-neutrality claim.
 
@@ -50,6 +52,19 @@ Aerie's sustainability approach is to do simple operations locally when they are
 
 Read the decisions and limits in [`docs/ARCHITECTURE_LOCAL_FIRST.md`](docs/ARCHITECTURE_LOCAL_FIRST.md) and [`docs/SECURITY_THREAT_MODEL.md`](docs/SECURITY_THREAT_MODEL.md).
 
+
+### Aerie Studio — practical workflow experiments
+
+Our [six Studio tools](https://aerie-ai.github.io/webpage/studio/) calculate scenarios and prepare internal reviews **entirely in a browser session**:
+
+- **Flow:** quantify a fictional administration bottleneck and explore 15 sector-specific ideas.
+- **Energy:** estimate equipment operating costs, add fictional equipment types to a portfolio, and compare AI/local compute scenarios using entered joules/task rather than invented emissions factors.
+- **Quote:** review scope completeness, quote margin versus markup, and export a fictional internal CSV.
+- **Follow-Up:** prepare fictional review queues, flag opt-outs and hold ambiguous contact permission; nothing gets sent.
+- **Field:** generate checkable site-visit packs and export an example checklist.
+- **Guardian:** highlight self-reported access/security control gaps. It does **not** scan or certify systems.
+
+Everything is for synthetic exploration, not confidential or real client data. See [`docs/STUDIO_PRODUCTS.md`](docs/STUDIO_PRODUCTS.md) for calculation assumptions, limitations and future priorities.
 
 ## How development is validated
 
