@@ -4,6 +4,7 @@ Updated: 18 October 2026. **Development planning, not a penetration-test certifi
 ## System actually present today
 
 - GitHub Pages serves a **public static demonstration**. The browser Lab runs local rule-based enquiry triage, edits drafts in memory, and calculates fictional quotations. It does not have logins, customer tenants, a production database, email access, or a live AI connection.
+- Static homepage and privacy pages in this PR add an explicit **no-script/no-network** HTML CSP; the Lab already restricts network access. A meta CSP is defense-in-depth, not a guarantee against maliciously replaced pages. Framing restrictions require server response headers, not a meta tag.
 - A separate offline Python pilot reads fictional sample data. A **disabled by default** opt-in local-model adapter exists for future work.
 - Current GitHub Actions uses a read-only token and test workflow. The security hardening PR removes persisted checkout credentials and pins the external workflow actions by full commit SHA.
 - No production customer data is accepted, synchronised, encrypted, backed up, or processed today. Client-specific compliance is **not implemented**.
