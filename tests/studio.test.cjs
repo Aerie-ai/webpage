@@ -24,6 +24,21 @@ test("equipment rejects invalid input and cannot save more operating hours than 
   assert.throws(() => energy.equipmentEstimate({...x,euroPerKwh:"NaN"}),RangeError);
 });
 
+test("equipment portfolio aggregates two fictional device classes and respects cap", () => {
+  const one={label:"Example lighting",watts:500,units:2,hoursPerDay:8,daysPerWeek:5,weeksPerYear:50,euroPerKwh:.30,hoursReducedPerDay:2};
+  const second={label:"Example computer",watts:100,units:1,hoursPerDay:5,daysPerWeek:5,weeksPerYear:50,euroPerKwh:.30,hoursReducedPerDay:1};
+  const r=energy.equipmentPortfolio([one,second]);
+  assert.equal(r.annualKwh,2125);
+  assert.equal(r.annualCostEuro,637.5);
+  assert.equal(r.potentialKwhAvoided,525);
+  assert.equal(r.items.length,2);
+  assert.equal(r.modelCalls,0);
+  assert.equal(r.externalActions,0);
+  assert.equal(r.measuredEnergy,false);
+  assert.throws(()=>energy.equipmentPortfolio([]),RangeError);
+  assert.throws(()=>energy.equipmentPortfolio(Array(41).fill(one)),RangeError);
+});
+
 test("compute comparison is optional, transparent scenario, never a CO2 measurement", () => {
   const result = energy.computeEstimate({tasksPerDay:100,daysPerYear:365,modelSharePercent:20,localJoulesPerTask:2,aiJoulesPerTask:50,euroPerKwh:.3});
   assert.equal(result.annualTasks,36500);
