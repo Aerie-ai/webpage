@@ -36,7 +36,7 @@ test("public static pages forbid scripts and outgoing connections", () => {
     for (const policy of ["default-src 'none'", "script-src 'none'", "connect-src 'none'", "form-action 'none'"]) {
       assert.ok(page.includes(policy), file + ": missing " + policy);
     }
-    assert.doesNotMatch(page, /<script\\b/i, file + ": unexpected JavaScript");
+    assert.doesNotMatch(page, /<script\b/i, file + ": unexpected JavaScript");
   }
 });
 
