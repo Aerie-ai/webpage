@@ -68,8 +68,8 @@ test("Aerie Lab remains deliberately isolated from external systems", () => {
 
 
 test("New Studio is available from both website and Lab", () => {
-  assert.match(home, /href="studio\\/"/);
-  assert.match(lab, /href="\\.\\.\\/studio\\/"/);
+  assert.ok(home.includes('href="studio/"'));
+  assert.ok(lab.includes('href="../studio/"'));
   for (const id of ["flow","energy","quote","follow","field","guardian"]) {
     assert.ok(studio.includes('id="'+id+'"'),id);
   }
