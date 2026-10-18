@@ -27,14 +27,17 @@ on:
       - 'tests/**'
       - '.github/workflows/aerie-demo.yml'
 
+permissions:
+  contents: read
+
 jobs:
   test-demo:
     runs-on: ubuntu-24.04
-    permissions:
-      contents: read
     steps:
-      - uses: actions/checkout@v5
-      - uses: actions/setup-python@v6
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5 (verified upstream)
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6 (verified upstream)
         with:
           python-version: '3.12'
       - name: Test agent
@@ -47,7 +50,7 @@ jobs:
         run: python agent/mock_client_evaluation.py
       - name: Upload offline review dashboard and reports
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4 (verified upstream)
         with:
           name: aerie-review-report
           path: |
