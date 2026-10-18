@@ -15,7 +15,7 @@ test("all six concrete tools are on the Studio page with working UI hooks",()=>{
     assert.match(studio,new RegExp('id="'+section+'"'));
     assert.match(studio,new RegExp('href="#'+section+'"'));
   }
-  for(const button of ["flowGo","energyGo","computeGo","quoteGo","quoteCsv","followGo","fieldGo","fieldCsv","guardianGo"]){
+  for(const button of ["flowGo","energyGo","energyAdd","energyPortfolioCsv","energyReset","computeGo","quoteGo","quoteCsv","followGo","followAdd","followCsv","followClear","fieldGo","fieldCsv","guardianGo"]){
     assert.match(studio,new RegExp('id="'+button+'"'));
     assert.match(app,new RegExp('\\$\\("'+button+'"\\)'));
   }
