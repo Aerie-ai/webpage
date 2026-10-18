@@ -118,7 +118,7 @@ def parse_model_response(body: bytes) -> dict:
     # Keep model-supplied explanations within the same untrusted boundary as drafts.
     # Markup and bidi controls are rejected instead of being treated as HTML.
     if any(UNSAFE_DRAFT.search(field) or UNVERIFIED_LINK.search(field)
-           or re.search(r"[<>\\u202A-\\u202E\\u2066-\\u2069]", field)
+           or re.search(r"[<>\u202A-\u202E\u2066-\u2069]", field)
            for field in fields):
         raise ValueError("Model returned unsafe text; human rewrite required")
     # Treat model output as untrusted and never authorize external actions.
