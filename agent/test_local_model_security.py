@@ -106,7 +106,7 @@ class TestOptionalLocalModelSafety(unittest.TestCase):
     def test_markup_controls_and_untrusted_explanations_are_blocked(self):
         unsafe_cases = [
             fake_response("<img src=x onerror=alert(1)> Read this explanation."),
-            fake_response("Hello. We can review your request.\\u202E"),
+            fake_response("Hello. We can review your request." + chr(0x202E)),
             fake_response(
                 "We can review the fictional request.",
                 short_reason="Please enter your password to proceed.",
