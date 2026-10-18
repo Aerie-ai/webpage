@@ -16,6 +16,7 @@ from __future__ import annotations
 
 import json
 import os
+import re
 from dataclasses import dataclass
 from urllib import request
 from urllib.parse import urlparse
@@ -32,6 +33,29 @@ SYSTEM_RULES = (
     "Every draft will be reviewed by a human."
 )
 CATEGORIES = {"quotation", "appointments", "support", "services", "privacy", "general"}
+
+# A conservative additional safeguard on untrusted model-generated draft text.
+# These patterns catch obvious failures; they are not a general LLM security oracle.
+UNSAFE_DRAFT = re.compile(
+    r"\\b(?:send|share|provide|enter|upload|reply with)\\b.{0,70}"
+    r"\\b(?:password|passcode|otp|one.time code|security code|card number|cvv|"
+    r"api key|private key|identity documents?)\\b"
+    r"|\\b(?:we have|we've|i have)\\s+(?:already\\s+)?"
+    r"(?:sent|fixed|booked|approved|refunded|charged|deleted|processed)\\b"
+    r"|\\b(?:refund has been approved|booking (?:is|has been) confirmed|"
+    r"payment (?:is|has been) processed)\\b",
+    re.I,
+)
+UNVERIFIED_LINK = re.compile(r"\\b(?:https?://|www\\.)", re.I)
+
+
+class RejectRedirects(request.HTTPRedirectHandler):
+    """A loopback adapter must never follow a redirect to another server."""
+
+    def redirect_request(self, req, fp, code, msg, headers, newurl):
+        raise PermissionError("Local model redirect blocked")
+
+
 
 
 @dataclass(frozen=True)
@@ -88,6 +112,10 @@ def parse_model_response(body: bytes) -> dict:
         raise ValueError("Model returned an invalid draft")
     if not isinstance(result.get("short_reason"), str) or len(result["short_reason"]) > 300:
         raise ValueError("Model returned an invalid explanation")
+    # Untrusted model text can contain phishing requests or forged confirmations.
+    # Reject obvious high-risk drafts rather than relying solely on prompt rules.
+    if UNSAFE_DRAFT.search(result["draft"]) or UNVERIFIED_LINK.search(result["draft"]):
+        raise ValueError("Model returned an unsafe draft; human rewrite required")
     # Treat model output as untrusted and never authorize external actions.
     return {
         "category": result["category"],
@@ -117,7 +145,7 @@ def ask_local_model(fictional_message: str, config: LocalModelConfig, *, explici
     )
     if opener is None:
         # Prevent proxy environment variables from sending localhost traffic away.
-        opener = request.build_opener(request.ProxyHandler({}))
+        opener = request.build_opener(request.ProxyHandler({}), RejectRedirects())
     with opener.open(req, timeout=config.timeout_seconds) as response:
         result = response.read(200_001)
     return parse_model_response(result)
