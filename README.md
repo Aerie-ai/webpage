@@ -2,18 +2,18 @@
 
 Aerie is an early-stage, sustainability-minded business automation project for independent businesses. The site uses the approved navy, maroon, sunset and mountain/nest branding.
 
-**Current status:** Public demonstration code is ready, but the repository's GitHub Pages hosting must be enabled separately. The demo uses entirely fictional customer examples.
+**Current status:** GitHub Pages has been deployed successfully; the demonstration still uses fictional-only data. The demo uses entirely fictional customer examples.
 
 ## Try Aerie in your browser
 
-Once GitHub Pages is enabled, these will be the site addresses:
+These are the GitHub Pages site addresses (availability also depends on GitHub Pages hosting):
 
 - **Homepage:** https://aerie-ai.github.io/webpage/
 - **Interactive Aerie Lab:** https://aerie-ai.github.io/webpage/pilot/
 - **Quotation builder:** https://aerie-ai.github.io/webpage/pilot/#quote
 - **Enquiry analyser:** https://aerie-ai.github.io/webpage/pilot/#enquiries
 
-### First-time publishing step (repository owner)
+### Publishing configuration (repository owner)
 
 1. Open **[Settings → Pages](https://github.com/Aerie-ai/webpage/settings/pages)**.
 2. Under **Build and deployment**, select **Deploy from a branch**.
@@ -40,6 +40,16 @@ If you have not enabled Pages, you can still download the repository ZIP using G
 | Follow-Up Assistant | Planned, not implemented |
 
 Aerie's sustainability approach is to do simple operations locally when they are sufficient, rather than defaulting to expensive model inference. We **have not measured actual energy use or carbon emissions**, and we make no carbon-neutrality claim.
+
+### Security and decentralisation are core design requirements
+
+- **Local-first:** classify fictional enquiries, calculate costs and review drafts on the user's device. The public Lab sends no model requests or customer data and keeps no enquiry history.
+- **Customer data ownership:** real products should support customer-controlled storage, portable exports and optional encrypted sync with strong recovery. This is a **future architecture**, not implemented storage security.
+- **Least privilege:** any future integration must have narrowly scoped access, human approval for consequential actions and verifiable tenant separation.
+- **Efficiency guardrails:** CI tests static source-size and no-network defaults and reports synthetic runtime and model-call counts in `output/efficiency_baseline.json`. Source bytes and timings are **not** electricity/carbon measurements. Changes exceeding the budgets or requiring central processing need explicit design review.
+
+Read the decisions and limits in [`docs/ARCHITECTURE_LOCAL_FIRST.md`](docs/ARCHITECTURE_LOCAL_FIRST.md) and [`docs/SECURITY_THREAT_MODEL.md`](docs/SECURITY_THREAT_MODEL.md).
+
 
 ## How development is validated
 
