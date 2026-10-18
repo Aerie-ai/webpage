@@ -38,6 +38,16 @@ test("sensitive synthetic fields redacted and routed for review", () => {
   assert.equal(r.externalActions, 0);
 });
 
+test("browser minimises obvious synthetic phone and identity fields", () => {
+  const r = pilot.evaluate("Please call me on +353 87 123 4567 about my order.");
+  assert.ok(r.redactionFlags.includes("possible_phone"));
+  assert.doesNotMatch(r.message, /123 4567/);
+  assert.equal(r.route, "Human review");
+  const identity = pilot.redact("national insurance number: fake12345");
+  assert.ok(identity.flags.includes("identity_reference"));
+  assert.doesNotMatch(identity.text, /fake12345/);
+});
+
 test("fictional card Luhn checks and normal amounts", () => {
   assert.match(pilot.redact("Sample test card 4111 1111 1111 1111").text, /payment card removed/);
   assert.match(pilot.redact("Internal budget €250").text, /€250/);

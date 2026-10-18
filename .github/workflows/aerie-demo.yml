@@ -13,6 +13,7 @@ on:
       - 'Job_Quote_Calculator_DEMO.xlsx'
       - 'pilot/**'
       - 'tests/**'
+      - 'tools/**'
       - '.github/workflows/aerie-demo.yml'
   pull_request:
     paths:
@@ -25,29 +26,35 @@ on:
       - 'Job_Quote_Calculator_DEMO.xlsx'
       - 'pilot/**'
       - 'tests/**'
+      - 'tools/**'
       - '.github/workflows/aerie-demo.yml'
+
+permissions:
+  contents: read
 
 jobs:
   test-demo:
     runs-on: ubuntu-24.04
-    permissions:
-      contents: read
     steps:
-      - uses: actions/checkout@v5
-      - uses: actions/setup-python@v6
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5 (verified upstream)
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6 (verified upstream)
         with:
           python-version: '3.12'
       - name: Test agent
         run: python -m unittest discover -s agent -p 'test_*.py' -v
       - name: Test static Aerie Lab locally (built-in Node test runner)
         run: node --test tests/*.test.cjs
+      - name: Measure local-first synthetic work and static source budget
+        run: node tools/measure_demo.cjs
       - name: Process fictional enquiries
         run: python agent/run.py
       - name: Evaluate realistic fictional client cases
         run: python agent/mock_client_evaluation.py
       - name: Upload offline review dashboard and reports
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4 (verified upstream)
         with:
           name: aerie-review-report
           path: |
@@ -55,6 +62,7 @@ jobs:
             output/dashboard.html
             output/summary.md
             output/mock_clients_results.json
+            output/efficiency_baseline.json
             output/mock_clients_results.md
             output/mock_clients_dashboard.html
           retention-days: 7
