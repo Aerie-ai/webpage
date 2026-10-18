@@ -43,6 +43,24 @@ test("no unnecessary central services, third-party runtime scripts or local pers
   }
 });
 
+
+test("six Studio tools remain within explicit local-first source budgets", () => {
+  const studioFiles = ["studio/index.html", "studio/engine.js", "studio/products.js", "studio/app.js"];
+  const studioScripts = ["studio/engine.js", "studio/products.js", "studio/app.js"];
+  const publicTotal = [...publicAssets, ...studioFiles].reduce((n, p) => n + size(p), 0);
+  const scriptTotal = [...scripts, ...studioScripts].reduce((n, p) => n + size(p), 0);
+  assert.ok(publicTotal <= 180 * 1024, "Public source exceeded 180 KiB: " + publicTotal);
+  assert.ok(scriptTotal <= 64 * 1024, "JavaScript source exceeded 64 KiB: " + scriptTotal);
+  const page = fromRoot("studio/index.html");
+  assert.match(page, /connect-src 'none'/);
+  assert.match(page, /form-action 'none'/);
+  for (const name of studioScripts) {
+    const source = fromRoot(name);
+    assert.doesNotMatch(source, /\\b(?:localStorage|sessionStorage|indexedDB|caches)\\b/i);
+    assert.doesNotMatch(source, /\\b(?:fetch|XMLHttpRequest|WebSocket|EventSource|sendBeacon)\\s*(?:\\(|\\.)/i);
+  }
+});
+
 test("fictional local decisions require approval and never request AI/network actions", () => {
   const pilot = require("../pilot/engine.js");
   const fixtures = [
