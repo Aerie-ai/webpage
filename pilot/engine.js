@@ -17,9 +17,10 @@
   const url = /\bhttps?:\/\/[^\s<>"']+/gi;
   const secret = /\b(?:password|passwd|api[_ -]?key|access[_ -]?token|secret|otp)\s*(?::|=|\bis\b)\s*["']?[^\s,;"']{4,}/gi;
   const bearer = /\bBearer\s+[A-Za-z0-9._~+/-]{10,}=*/gi;
-  const identity = /\b(?:PPSN|passport number|IBAN)\s*[:=]\s*[^\s,;]{4,}/gi;
+  const identity = /\b(?:PPSN|passport number|national insurance number|IBAN)\s*[:=]\s*[^\s,;]{4,}/gi;
   const privateKey = /-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----[\s\S]*?-----END (?:RSA |EC |OPENSSH )?PRIVATE KEY-----/gi;
   const paymentCandidate = /(?<!\d)(?:\d[ -]?){12,18}\d(?!\d)/g;
+  const phone = /(?<![\w])(?:\+\d{1,3}[\s.-]?)?(?:\(?\d{2,4}\)?[\s.-]?){2,4}\d{3,4}(?!\w)/g;
 
   function luhn(s) {
     const digits = s.replace(/\D/g, "");
@@ -50,6 +51,7 @@
     replace(email, "email", "[email removed]");
     replace(url, "link", "[link removed]");
     replace(paymentCandidate, "payment_card", "[payment card removed]", luhn);
+    replace(phone, "possible_phone", "[phone removed]", x => x.replace(/\D/g, "").length >= 9);
     return { text: text.trim(), flags: Array.from(flags).sort() };
   }
   function classify(text) {
