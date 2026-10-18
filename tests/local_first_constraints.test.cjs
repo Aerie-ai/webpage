@@ -56,8 +56,8 @@ test("six Studio tools remain within explicit local-first source budgets", () =>
   assert.match(page, /form-action 'none'/);
   for (const name of studioScripts) {
     const source = fromRoot(name);
-    assert.doesNotMatch(source, /\\b(?:localStorage|sessionStorage|indexedDB|caches)\\b/i);
-    assert.doesNotMatch(source, /\\b(?:fetch|XMLHttpRequest|WebSocket|EventSource|sendBeacon)\\s*(?:\\(|\\.)/i);
+    assert.doesNotMatch(source, /\b(?:localStorage|sessionStorage|indexedDB|caches)\b/i);
+    assert.doesNotMatch(source, /\b(?:fetch|XMLHttpRequest|WebSocket|EventSource|sendBeacon)\s*(?:\(|\.)/i);
   }
 });
 
