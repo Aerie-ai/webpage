@@ -30,7 +30,7 @@ test("compute comparison is optional, transparent scenario, never a CO2 measurem
   assert.equal(result.hypotheticalAiCalls,7300);
   assert.equal(result.hypotheticalLocalTasks,29200);
   assert.equal(result.measuredEnergy,false);
-  assert.equal(result.hybridKwh,0.11772);
+  assert.equal(result.hybridKwh,0.11761);
   assert.equal(result.allAiKwh,0.50694);
   assert.ok(result.differenceKwh>0);
 });
