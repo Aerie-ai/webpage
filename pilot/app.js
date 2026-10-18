@@ -122,12 +122,7 @@
   $("export").addEventListener("click", function () {
     if (!lastQuote) return;
     const quote = getQuoteFields();
-    // Neutralize formula execution on opening CSV with spreadsheet software.
-    function cell(value) {
-      const raw = String(value == null ? "" : value).replace(/[\r\n\t]/g, " ").slice(0, 250);
-      const safe = /^[\s]*[=+\-@]/.test(raw) ? "'" + raw : raw;
-      return '"' + safe.replace(/"/g, '""') + '"';
-    }
+    // Centralised defensive CSV encoding. Spreadsheet apps differ; synthetic data only.
     const entries = [
       ["Field","Value"],
       ["Kind","FICTIONAL INTERNAL ESTIMATE - NOT APPROVED"],
@@ -144,7 +139,7 @@
       ["Internal estimated total EUR", lastQuote.total],
       ["Disclaimer", lastQuote.note]
     ];
-    const csv = entries.map(function (row) { return row.map(cell).join(","); }).join("\r\n");
+    const csv = AerieCsv.rows(entries);
     const blob = new Blob([csv], {type:"text/csv;charset=utf-8"});
     const downloadUrl = URL.createObjectURL(blob);
     const a = document.createElement("a");
