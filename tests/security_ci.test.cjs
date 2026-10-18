@@ -30,6 +30,16 @@ test("fictional browser Lab cannot connect to services and loads only expected s
   assert.doesNotMatch(lab, /<script(?![^>]*\bsrc=)[^>]*>/i);
 });
 
+test("public static pages forbid scripts and outgoing connections", () => {
+  for (const file of ["index.html", "privacy.html"]) {
+    const page = fs.readFileSync(path.join(root, file), "utf8");
+    for (const policy of ["default-src 'none'", "script-src 'none'", "connect-src 'none'", "form-action 'none'"]) {
+      assert.ok(page.includes(policy), file + ": missing " + policy);
+    }
+    assert.doesNotMatch(page, /<script\\b/i, file + ": unexpected JavaScript");
+  }
+});
+
 test("customer text is not interpreted as HTML or executed from the demo", () => {
   const app = fs.readFileSync(path.join(root, "pilot/app.js"), "utf8");
   const engine = fs.readFileSync(path.join(root, "pilot/engine.js"), "utf8");
