@@ -41,6 +41,7 @@
 </section>
 <section class="panel" id="energy"><p class="overline">02 / Aerie Energy</p><h2>Electricity &amp; compute</h2>
 <p class="muted">Estimate device running costs and compare changes to operating hours. A separate calculator compares computational scenarios using energy figures you supply.</p>
+<label for="equipmentLabel">Fictional equipment type</label><input id="equipmentLabel" maxlength="60" value="Example shop equipment">
 <div class="fields">
 <div><label for="watts">Rated or measured power (watts)</label><input id="watts" type="number" min="0" max="1000000" value="500"></div>
 <div><label for="units">Number of devices</label><input id="units" type="number" min="1" max="100000" value="2"></div>
@@ -50,8 +51,11 @@
 <div><label for="energyTariff">Electricity price (€/kWh)</label><input id="energyTariff" type="number" min="0" max="10" step=".001" value=".30"></div>
 <div><label for="hoursReduced">Hours avoided per active day</label><input id="hoursReduced" type="number" min="0" max="24" step=".25" value="2"></div>
 </div>
-<div class="actions"><button class="btn" id="energyGo" type="button">Estimate electricity</button></div>
+<div class="actions"><button class="btn" id="energyGo" type="button">Estimate electricity</button><button class="btn secondary" id="energyAdd" type="button">Add to equipment plan</button></div>
 <div class="result" id="energyResult" role="status" aria-live="polite"><p class="muted">All estimates depend on the wattage and tariff you enter.</p></div>
+<h3>Equipment portfolio (temporary)</h3><p class="muted small">Add up to 40 invented equipment scenarios; the list is cleared when the page reloads.</p>
+<div class="result" id="portfolioResult" role="status" aria-live="polite">No equipment scenarios added yet.</div>
+<div class="actions"><button class="btn secondary" id="energyPortfolioCsv" type="button" disabled>Export equipment summary</button><button class="btn ghost" id="energyReset" type="button">Clear equipment plan</button></div>
 <details><summary><strong>Compare local rules with AI compute scenarios</strong></summary>
 <p class="muted small">Enter comparable joules-per-task figures measured elsewhere, or use invented inputs only to explore the formula. Aerie does not currently measure AI electricity use.</p>
 <div class="fields">
@@ -92,8 +96,11 @@
 </div>
 <label class="check"><input type="checkbox" id="followAllowed" checked>Fictional contact has a confirmed appropriate contact basis (assumption only)</label>
 <label class="check"><input type="checkbox" id="followOptOut">Fictional recipient requested no further contact</label>
-<div class="actions"><button class="btn" id="followGo" type="button">Review follow-up</button></div>
+<div class="actions"><button class="btn" id="followGo" type="button">Review follow-up</button><button class="btn secondary" id="followAdd" type="button">Add fictional case to queue</button></div>
 <div class="result" id="followResult" role="status" aria-live="polite">No message generated or sent.</div>
+<h3>Temporary review queue</h3><p class="muted small">Queue decisions are fictional placeholders, not permission to contact anyone.</p>
+<div class="result" id="followQueueResult" role="status" aria-live="polite">No cases in this browser session.</div>
+<div class="actions"><button class="btn secondary" id="followCsv" type="button" disabled>Export fictional queue</button><button class="btn ghost" id="followClear" type="button">Clear queue</button></div>
 </section>
 <section class="panel" id="field"><p class="overline">05 / Aerie Field</p><h2>Leave with the right checklist</h2>
 <p class="muted">Prepare a generic job or field-visit checklist. No site information, photographs or GPS data are collected.</p>
