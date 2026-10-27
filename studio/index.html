@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'unsafe-inline'; img-src 'self' data:; connect-src 'none'; form-action 'none'; object-src 'none'; base-uri 'none'">
+<title>Aerie Studio — Six practical, private-by-default business tools</title>
+<meta name="description" content="Fictional-only browser tools for workflow planning, energy, quotations, follow-ups, field visits and security self-assessment.">
+<style>
+:root{--navy:#102d47;--wine:#7c2539;--coral:#d87050;--blue:#173f67;--cream:#fcf9f4;--ink:#182f40;--muted:#526470;--line:#d7e0e3}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font:15px/1.6 system-ui,-apple-system,Segoe UI,Arial,sans-serif;background:var(--cream);color:var(--ink)}h1,h2,h3,p{margin-top:0}h1,h2{line-height:1.15;letter-spacing:-.035em}h1{font-size:clamp(37px,6vw,62px);max-width:830px;margin:20px 0}h2{font-size:clamp(25px,3vw,36px)}h3{font-size:18px}a{color:var(--blue)}.shell{width:min(1160px,calc(100% - 40px));margin:0 auto}.hero{background:linear-gradient(115deg,#102d47 3%,#163e55 55%,#7c2539 100%);color:white;padding:24px 0 62px}.nav{display:flex;justify-content:space-between;align-items:center;gap:12px}.logo{font-weight:850;font-size:29px;letter-spacing:-.06em;color:white;text-decoration:none}.logo span{color:#f3ac89}.nav a:last-child{color:white;text-decoration:none;border:1px solid #abbecb;border-radius:8px;padding:8px 14px}.eyebrow{text-transform:uppercase;letter-spacing:.16em;color:#f6b18a;font-weight:800;font-size:12px;margin:47px 0 0}.intro{font-size:17px;color:#e0eaf0;max-width:780px}.chips{display:flex;flex-wrap:wrap;gap:9px;margin:24px 0 0}.chips span{border:1px solid #869da9;border-radius:22px;padding:5px 12px;font-size:12px}.warning{background:#fff1e6;border-left:4px solid var(--coral);padding:14px 17px;border-radius:8px;margin:27px 0 34px}
+.jump{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px}.jump a{display:inline-block;text-decoration:none;border:1px solid #bfccd4;border-radius:25px;padding:7px 12px;font-weight:650;font-size:13px;background:white}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}.panel{background:#fff;padding:29px;border:1px solid var(--line);border-radius:13px;box-shadow:0 12px 24px #193b5009;min-width:0}.panel.wide{grid-column:1/-1}.overline{font-size:12px;color:var(--wine);text-transform:uppercase;letter-spacing:.13em;font-weight:850}.muted{color:var(--muted)}.small{font-size:12px}.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 16px}label{display:block;font-size:13px;font-weight:750;margin:12px 0 5px}input,select{width:100%;padding:11px;border-radius:7px;border:1px solid #acbec8;background:white;color:var(--ink);font:inherit}input[type=checkbox]{width:auto;padding:0;margin:0 8px 0 0;accent-color:var(--wine)}.check{display:flex;align-items:center;gap:4px;font-weight:500;margin:10px 0}.checks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 12px}button{font:inherit;cursor:pointer}button:focus-visible,input:focus-visible,select:focus-visible,a:focus-visible{outline:3px solid #df9357;outline-offset:3px}.actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:20px}.btn{padding:11px 17px;background:var(--wine);color:#fff;border:0;border-radius:8px;font-weight:800}.btn.secondary{background:var(--blue)}.btn.ghost{background:#ebeff1;color:var(--ink)}.btn:disabled{opacity:.5;cursor:not-allowed}.result{margin-top:19px;border-radius:9px;border:1px solid #d3dfe5;background:#f6f8f8;padding:18px;min-height:60px}.result h3{margin:8px 0 7px}.result p{margin:5px 0}.result ul,.result ol{padding-left:23px}.stat{font-weight:850;font-size:27px;color:var(--wine);line-height:1.4}.pill{display:inline-block;border-radius:20px;padding:3px 10px;background:#f4e7e3;color:#763044;font-size:12px;font-weight:700}.mini{border-top:1px solid #dce5e9;padding:12px 0}.mini:first-child{border-top:0}.metric-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.metric{border:1px solid #dfebed;background:#fff;padding:12px;border-radius:8px}.metric strong{display:block;font-size:21px;color:var(--wine)}.guardian-field{display:flex;justify-content:space-between;align-items:center;gap:14px;border-bottom:1px solid #dde6e9;padding:11px 0}.guardian-field label{margin:0;flex:1}.guardian-field select{max-width:140px}footer{margin-top:48px;border-top:1px solid var(--line);padding:24px 0 45px;color:var(--muted);font-size:12px}
+@media(max-width:780px){.grid,.fields,.checks{grid-template-columns:1fr}.panel{padding:20px}.hero{padding-bottom:43px}.eyebrow{margin-top:35px}.guardian-field{align-items:stretch;flex-direction:column}.guardian-field select{max-width:none}.metric-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="hero"><div class="shell">
+<nav class="nav"><a href="../index.html" class="logo">aerie<span>.</span> studio</a><a href="../pilot/">← Aerie Lab</a></nav>
+<p class="eyebrow">Six useful tools / no accounts / no cloud calls</p>
+<h1>Make the work lighter.<br>Keep the control.</h1>
+<p class="intro">Explore what Aerie could do for a small business: find the admin bottleneck, estimate electricity scenarios, prepare quotes, review follow-ups, organise site visits and spot security gaps. Everything below runs locally in your browser.</p>
+<div class="chips"><span>Local by default</span><span>Fictional examples only</span><span>No AI API or tracking</span><span>No account or database</span><span>Human-approved</span></div>
+</div></header>
+<main class="shell">
+<div class="warning"><strong>Experimental, fictional-data tools only.</strong> Do not enter real customer names, records, credentials, private addresses, personnel data or confidential business information. Numbers are assumptions supplied by you, not verified savings or security ratings. Results are not sent or stored by Aerie.</div>
+<nav class="jump" aria-label="Tools"><a href="#flow">01 Flow</a><a href="#energy">02 Energy</a><a href="#quote">03 Quote</a><a href="#follow">04 Follow-Up</a><a href="#field">05 Field</a><a href="#guardian">06 Guardian</a></nav>
+<div class="grid">
+<section class="panel" id="flow"><p class="overline">01 / Aerie Flow</p><h2>Find the bottleneck</h2>
+<p class="muted">Choose a fictional business type, estimate repetitive work, and see three tailored ideas for removing friction.</p>
+<div class="fields">
+<div><label for="sector">Business type</label><select id="sector"><option value="trades">Trades &amp; construction</option><option value="hospitality">Café &amp; hospitality</option><option value="retail">Retail &amp; shops</option><option value="services">Professional services</option><option value="fieldwork">Fieldwork &amp; surveys</option></select></div>
+<div><label for="tasksPerWeek">Repetitive tasks per week</label><input id="tasksPerWeek" type="number" min="0" max="100000" value="20"></div>
+<div><label for="minutesPerTask">Minutes per task</label><input id="minutesPerTask" type="number" min="0" max="1440" value="15"></div>
+<div><label for="improvementPercent">Assumed time reduction (%)</label><input id="improvementPercent" type="number" min="0" max="100" value="20"></div>
+<div><label for="weeksPerYear">Working weeks each year</label><input id="weeksPerYear" type="number" min="0" max="52.18" step=".01" value="50"></div>
+<div><label for="euroPerHour">Illustrative value of time (€/hour)</label><input id="euroPerHour" type="number" min="0" max="10000" value="30"></div>
+</div>
+<div class="actions"><button class="btn" id="flowGo" type="button">Explore workflows</button></div>
+<div class="result" id="flowResult" role="status" aria-live="polite"><p class="muted">Select Explore workflows to see local recommendations.</p></div>
+</section>
+<section class="panel" id="energy"><p class="overline">02 / Aerie Energy</p><h2>Electricity &amp; compute</h2>
+<p class="muted">Estimate device running costs and compare changes to operating hours. A separate calculator compares computational scenarios using energy figures you supply.</p>
+<label for="equipmentLabel">Fictional equipment type</label><input id="equipmentLabel" maxlength="60" value="Example shop equipment">
+<div class="fields">
+<div><label for="watts">Rated or measured power (watts)</label><input id="watts" type="number" min="0" max="1000000" value="500"></div>
+<div><label for="units">Number of devices</label><input id="units" type="number" min="1" max="100000" value="2"></div>
+<div><label for="hoursPerDay">Hours running per active day</label><input id="hoursPerDay" type="number" min="0" max="24" value="8"></div>
+<div><label for="daysPerWeek">Active days per week</label><input id="daysPerWeek" type="number" min="0" max="7" value="5"></div>
+<div><label for="energyWeeks">Weeks of operation per year</label><input id="energyWeeks" type="number" min="0" max="52.18" value="50"></div>
+<div><label for="energyTariff">Electricity price (€/kWh)</label><input id="energyTariff" type="number" min="0" max="10" step=".001" value=".30"></div>
+<div><label for="hoursReduced">Hours avoided per active day</label><input id="hoursReduced" type="number" min="0" max="24" step=".25" value="2"></div>
+</div>
+<div class="actions"><button class="btn" id="energyGo" type="button">Estimate electricity</button><button class="btn secondary" id="energyAdd" type="button">Add to equipment plan</button></div>
+<div class="result" id="energyResult" role="status" aria-live="polite"><p class="muted">All estimates depend on the wattage and tariff you enter.</p></div>
+<h3>Equipment portfolio (temporary)</h3><p class="muted small">Add up to 40 invented equipment scenarios; the list is cleared when the page reloads.</p>
+<div class="result" id="portfolioResult" role="status" aria-live="polite">No equipment scenarios added yet.</div>
+<div class="actions"><button class="btn secondary" id="energyPortfolioCsv" type="button" disabled>Export equipment summary</button><button class="btn ghost" id="energyReset" type="button">Clear equipment plan</button></div>
+<details><summary><strong>Compare local rules with AI compute scenarios</strong></summary>
+<p class="muted small">Enter comparable joules-per-task figures measured elsewhere, or use invented inputs only to explore the formula. Aerie does not currently measure AI electricity use.</p>
+<div class="fields">
+<div><label for="computeTasks">Tasks per day</label><input id="computeTasks" type="number" min="0" value="100"></div>
+<div><label for="computeDays">Active days annually</label><input id="computeDays" type="number" min="0" max="366" value="250"></div>
+<div><label for="aiShare">Tasks using AI (%)</label><input id="aiShare" type="number" min="0" max="100" value="20"></div>
+<div><label for="localJoules">Local joules per task</label><input id="localJoules" type="number" min="0" step="any" placeholder="Your measured or fictional value"></div>
+<div><label for="aiJoules">AI joules per task</label><input id="aiJoules" type="number" min="0" step="any" placeholder="Your measured or fictional value"></div>
+</div>
+<div class="actions"><button class="btn secondary" id="computeGo" type="button">Compare scenarios</button></div>
+<div class="result" id="computeResult" role="status" aria-live="polite">No AI electricity numbers assumed.</div>
+</details>
+</section>
+<section class="panel" id="quote"><p class="overline">03 / Aerie Quote</p><h2>From request to ready-to-review</h2>
+<p class="muted">Calculate a fictional internal estimate and spot missing information before someone promises a price.</p>
+<label for="quoteScope">Invented scope</label><input id="quoteScope" maxlength="120" value="Repair three decking boards">
+<div class="fields">
+<div><label for="quoteHours">Labour hours</label><input id="quoteHours" type="number" min="0" value="8"></div>
+<div><label for="quoteRate">Rate (€/hour)</label><input id="quoteRate" type="number" min="0" value="35"></div>
+<div><label for="quoteMaterials">Materials (€)</label><input id="quoteMaterials" type="number" min="0" value="120"></div>
+<div><label for="quoteOverheads">Overheads (€)</label><input id="quoteOverheads" type="number" min="0" value="40"></div>
+<div><label for="quoteMarkup">Markup (%)</label><input id="quoteMarkup" type="number" min="0" max="500" value="20"></div>
+</div>
+<div class="checks">
+<label class="check"><input type="checkbox" id="quoteMeasurements">Measurements known</label>
+<label class="check"><input type="checkbox" id="quoteAccess">Site access checked</label>
+<label class="check"><input type="checkbox" id="quoteTimeline">Deadline confirmed</label>
+<label class="check"><input type="checkbox" id="quoteMaterialsChecked">Materials checked</label>
+</div>
+<div class="actions"><button class="btn" id="quoteGo" type="button">Review quote</button><button class="btn secondary" id="quoteCsv" type="button" disabled>Export fictional summary</button></div>
+<div class="result" id="quoteResult" role="status" aria-live="polite">No quote prepared.</div>
+</section>
+<section class="panel" id="follow"><p class="overline">04 / Aerie Follow-Up</p><h2>Don't lose track—or overstep</h2>
+<p class="muted">Check when a fictional enquiry might need attention while respecting opt-outs and contact permissions. Nothing is actually sent or scheduled.</p>
+<div class="fields">
+<div><label for="followStage">Request stage</label><select id="followStage"><option value="new">New enquiry</option><option value="quoted" selected>Quote prepared</option><option value="waiting">Waiting for response</option><option value="completed">Completed/closed</option></select></div>
+<div><label for="followDays">Days since previous contact</label><input type="number" id="followDays" min="0" max="3650" value="7"></div>
+</div>
+<label class="check"><input type="checkbox" id="followAllowed" checked>Fictional contact has a confirmed appropriate contact basis (assumption only)</label>
+<label class="check"><input type="checkbox" id="followOptOut">Fictional recipient requested no further contact</label>
+<div class="actions"><button class="btn" id="followGo" type="button">Review follow-up</button><button class="btn secondary" id="followAdd" type="button">Add fictional case to queue</button></div>
+<div class="result" id="followResult" role="status" aria-live="polite">No message generated or sent.</div>
+<h3>Temporary review queue</h3><p class="muted small">Queue decisions are fictional placeholders, not permission to contact anyone.</p>
+<div class="result" id="followQueueResult" role="status" aria-live="polite">No cases in this browser session.</div>
+<div class="actions"><button class="btn secondary" id="followCsv" type="button" disabled>Export fictional queue</button><button class="btn ghost" id="followClear" type="button">Clear queue</button></div>
+</section>
+<section class="panel" id="field"><p class="overline">05 / Aerie Field</p><h2>Leave with the right checklist</h2>
+<p class="muted">Prepare a generic job or field-visit checklist. No site information, photographs or GPS data are collected.</p>
+<label for="fieldType">Fictional job type</label><select id="fieldType"><option value="field">Ecology and field survey</option><option value="building">Contractor site visit</option><option value="retail">Shop operations visit</option><option value="maintenance">Equipment maintenance visit</option></select>
+<div class="actions"><button class="btn" id="fieldGo" type="button">Build checklist</button><button class="btn secondary" id="fieldCsv" disabled type="button">Export checklist CSV</button></div>
+<div class="result" id="fieldResult" role="status" aria-live="polite">No fictional checklist prepared.</div>
+</section>
+<section class="panel" id="guardian"><p class="overline">06 / Aerie Guardian</p><h2>Security habits worth checking</h2>
+<p class="muted">A plain-language self-assessment for small teams. It checks your answers—not your devices or network. It cannot verify security or certify GDPR compliance.</p>
+<div id="guardianQuestions"></div>
+<div class="actions"><button class="btn" id="guardianGo" type="button">Review security gaps</button></div>
+<div class="result" id="guardianResult" role="status" aria-live="polite">All controls are unverified until assessed.</div>
+</section>
+<section class="panel wide"><p class="overline">How Aerie is different</p><h2>Useful work without surrendering your data</h2>
+<p>All six tools use local arithmetic, structured questions and transparent decision rules. They are prototypes and are not connected to email, payment processors, calendars, energy meters, company databases or AI models. The CSV exports are for fictional examples only.</p>
+<p class="muted">The next challenge is not adding a costly general-purpose AI everywhere; it is testing which real workflows can be reliably improved, then building permissioned integrations, independently reviewed storage and actual energy measurements where necessary.</p>
+<p><a href="../pilot/">Try the original Enquiry Desk</a> · <a href="../index.html">Return to the Aerie website</a></p>
+</section>
+</div>
+</main>
+<footer><div class="shell">Aerie Studio · Fictional business workflows · No storage, external actions, or real-client processing · Calculated examples, not guaranteed savings.</div></footer>
+<script src="../pilot/engine.js"></script>
+<script src="../pilot/csv.js"></script>
+<script src="engine.js"></script>
+<script src="products.js"></script>
+<script src="app.js"></script>
+</body></html>
